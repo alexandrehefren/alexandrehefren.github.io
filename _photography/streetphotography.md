@@ -134,9 +134,9 @@ autor_profile: false
 
 
 
-<!-- {% include gallery id="gallerystreet" layout= "third" style="masonry" %} -->
+{% include gallery id="gallerystreet" layout= "third"%}
 
-{% include gallery id="gallerystreet" layout= "third" style="masonry"%}
+<!-- {% include gallery id="gallerystreet" layout= "third" style="masonry"%} -->
 
 
 

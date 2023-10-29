@@ -51,7 +51,7 @@ gallerylandscape:
     title: "Peak District, 2022"  
   
   
-  
+
   
   - url: /images/photos/landscape/DSC_3000.jpg
     image_path: /images/photos/landscape/DSC_3000.jpg
