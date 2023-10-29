@@ -5,10 +5,8 @@ layout: splash
 header:
   overlay_image: /images/photos/street/AHVJ2815-3.jpg
   teaser: /images/photos/street/AHVJ2815-3.jpg
-  overlay_filter:             #Color/opacity to overlay on top of the header image. Example: 0.5, rgba(255, 0, 0, 0.5) or linear-gradient. 
-#   caption: "photo bottom right" 
-  
-  
+  # overlay_filter:             #Color/opacity to overlay on top of the header image. Example: 0.5, rgba(255, 0, 0, 0.5) or linear-gradient. 
+#   caption: "photo bottom right"     
 excerpt: "Pieces of a city" 
 tagline:    #Overrides page excerpt. Useful when header text needs to be different from excerpt in archive views.
 
