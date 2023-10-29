@@ -1,7 +1,7 @@
 ---
 title: "Street Photography"
 layout: splash
-lasses: wide
+# classes: wide
 header:
   overlay_image: /images/photos/street/AHVJ2815-3.jpg
   teaser: /images/photos/street/AHVJ2815-3.jpg
