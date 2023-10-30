@@ -30,7 +30,7 @@ header:
 # collection: 
 # entries_layout: grid
 # classes: wide
-tags: website, Jekyll, writing
+tags: website Jekyll writing
 subject: 
 type: 
 topic: 
