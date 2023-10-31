@@ -36,30 +36,52 @@ comments: true
 
 ![]()
 _This is Part of my test._
+{: .notice}
+
+
+_This is Part of my test._
 {: .notice--primary}
 &nbsp;
 &nbsp;
 
-_This is Part of my test._
+<i class="fa-solid fa-quote-left"></i>_This is Part of my test._<i class="fa-solid fa-quote-right"></i>
 {: .notice--warning}
 
 _This is Part of my test._
 {: .notice--danger}
 
-_This is Part of my test._
+_This is Part of my test._<i class="fa-solid fa-check"></i>
 {: .notice--focus}
 
 _This is Part of my test._
 {: .notice--history}
 
-_This is Part of my test._
+<i class="fa-regular fa-book"></i>_This is Part of my test._ <i class="fa-solid fa-book"></i>
 {: .notice--hint}
 
-_This is Part of my test._
+<i class="far fa-clipboard"></i>_This is Part of my test._
 {: .notice--success}
-_This is Part of my test._
+
+<i class="fa-regular fa-calendar"></i>
+<i class="fa-regular fa-clock"></i>
+<i class="fa-solid fa-clock-rotate-left"></i>
+<i class="fa-solid fa-hourglass-half"></i>
+<i class="fa-solid fa-hourglass-end"></i>
+<i class="fa-solid fa-list"></i>
+<i class="fa-regular fa-circle-question"></i>
+<i class="fa-solid fa-circle-info"></i>
+<i class="fa-solid fa-xmark"></i>
+<i class="fa-solid fa-triangle-exclamation"></i>
+<i class="fa-solid fa-mug-hot"></i>
+<i class="fa-solid fa-camera"></i>
+<i class="fa-solid fa-arrow-right"></i>
+<i class="fa-regular fa-envelope"></i>
+<i class="fa-solid fa-image"></i>
+
+<i class="fa-regular fa-clipboard"></i> info: _This is Part of my test._
 {: .notice--info}
-_This is Part of my test._
+
+<i class="far fa-sticky-note"></i>_This is Part of my test._
 {: .notice--example}
 
 

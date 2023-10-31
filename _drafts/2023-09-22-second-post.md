@@ -29,7 +29,7 @@ $$\partial_x f = x^{\lambda}$$
 
 
 <figure style="width: 70%" class="align-center">
-  <img src="/images/photos/AHVJ5357-2.jpg" alt="sky">
+  <img src="/images/photos/AHVJ5357.jpg" alt="sky">
 </figure>
 
 this is *red*{: style="color: red"}

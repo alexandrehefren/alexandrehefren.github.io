@@ -27,7 +27,7 @@ sort_by: # date (default), title or any metadata key added to the collection's d
 sort_order: # forward (default), reverse
 ---
 
-**Henri Cartier-Bresson**    
+<i class="fa-solid fa-quote-right"></i> **Henri Cartier-Bresson**    
 “It is an illusion that photos are made with the camera… they are made with the eye, heart, and head.”
 {: .notice--primary}
 

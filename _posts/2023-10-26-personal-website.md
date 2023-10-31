@@ -3,7 +3,7 @@ title: "Creating a Personal Website"
 layout: single
 permalink: 
 date: 2023-10-29
-last_modified_at: 
+last_modified_at: 2023-10-30
 # toc: "true"
 toc_label: 
 toc_icon: 
@@ -11,7 +11,7 @@ author_profile: true
 read_time: 
 comments: 
 search: 
-# excerpt: ""
+excerpt: "Finding the motivation to start your own website"
 header:
   teaser: /images/photos/AHVJ5357.jpg
   # image: 
@@ -54,13 +54,13 @@ What the professor truly meant by his answer to my question was that the value o
 
 In that sense, I completely agree with my professor. That means we should, despite the tremendous resistance we may experience, share our thoughts, ideas and any views that come as direct result of intentional and focused use of our reasoning and intuition. The importance of expressing ourselves is strikingly captured  by [Waldo Emerson](https://en.wikipedia.org/wiki/The_Poet_(essay)): 
 
-**Ralph Waldo Emerson - 1844**  
+<i class="fa-solid fa-quote-right"></i> **Ralph Waldo Emerson - 1844**  
 "The man is only half himself, the other half is his expression".
 {: .notice--primary}
 
 By sharing our ideas and thoughts publicly, we expose them to criticism. We must be prepared to receive approval but also, more often, disapproval, ideally with some respect. Most of our ideas or theories are wrong, or at least not precise enough, but they serve an important purpose: a way to probe into the unknown. They are the exercise of our mind and can be stepping stones towards more correct or acceptable ideas. Sometimes, even great ideas that turn up to be valid later are rejected at first. 
 
-**Enrico Fermi - 1933**  
+<i class="fa-solid fa-list"></i> **Enrico Fermi - 1933**  
 Enrico Fermi's theory on [weak interaction](https://en.wikipedia.org/wiki/Fermi%27s_interaction) was
 rejected for containing "speculations too remote from reality".  
 {: .notice--example}
