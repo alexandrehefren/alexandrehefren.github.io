@@ -15,7 +15,7 @@ search:
 header:
   teaser: /images/photos/AHVJ5357.jpg
   # image: 
-  og_image: /images/posts/Pastedimage20230919115500.png
+  og_image: /images/photos/AHVJ5357.jpg
   # image_description: 
   # overlay_image: /images/photos/AHVJ5357.jpg
   # overlay_filter: 0.5
