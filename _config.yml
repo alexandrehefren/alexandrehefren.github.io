@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "default" "contrast", "dar
 
 # Site Settings
 locale                   : "en-GB"
-title                    : "Alexandre Hefren's Personal Page"
+title                    : "Learn While Live"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Alexandre Hefren"
-description              : "A personal webpage."
+description              : "Personal Webpage."
 url                      : "https://www.alexandrehefren.com"   #https://alexandrehefren.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "alexandrehefren/alexandrehefren.github.io"  # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
