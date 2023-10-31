@@ -21,9 +21,9 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Alexandre Hefren"
 description              : "A personal webpage."
-url                      : https://alexandrehefren.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://www.alexandrehefren.com"   #https://alexandrehefren.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : "alexandrehefren/alexandrehefren.github.io"  # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : /images/photos/AHVJ5357-2.jpg # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     :  # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : " " # overrides the website title displayed in the masthead, use " " for no title
@@ -100,7 +100,8 @@ analytics:
   google:
     tracking_id          :  G-W887YTKJWJ
     anonymize_ip         : # true, false (default)
-
+    # optimize_id        : 
+    # allow_google_signals : false
 
 # Site Author
 author:
