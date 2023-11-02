@@ -98,7 +98,6 @@ As predictive tools designed for specific purposes, they can be constantly updat
 
 One important question is the true extent of the potential discoveries that can be made by such useful AI tools. Can they lead to breakthrough discoveries? That is really a question for another post.   
 
-
 #### **How about exploratory data analysis?** 
 
 In a world where observations are guided by hypotheses and theories, one might question what is exploratory analysis really doing. After all, exploratory analysis should be investigations that lack a sharply defined purpose to limit the analysis.  
