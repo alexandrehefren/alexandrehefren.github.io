@@ -60,8 +60,8 @@ In that sense, I completely agree with my professor. That means we should, despi
 
 By sharing our ideas and thoughts publicly, we expose them to criticism. We must be prepared to receive approval but also, more often, disapproval, ideally with some respect. Most of our ideas or theories are wrong, or at least not precise enough, but they serve an important purpose: a way to probe into the unknown. They are the exercise of our mind and can be stepping stones towards more correct or acceptable ideas. Sometimes, even great ideas that turn up to be valid later are rejected at first. 
 
-<i class="fa-solid fa-list"></i> **Enrico Fermi - 1933**  
-Enrico Fermi's theory on [weak interaction](https://en.wikipedia.org/wiki/Fermi%27s_interaction) was
+<i class="fa-solid fa-list"></i> **Weak interaction**  
+Enrico Fermi's theory on [weak interaction](https://en.wikipedia.org/wiki/Fermi%27s_interaction) (1933) was
 rejected for containing "speculations too remote from reality".  
 {: .notice--example}
  

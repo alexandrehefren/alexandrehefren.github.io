@@ -2,8 +2,8 @@
 title: Data Speaks for Itself
 layout: single
 permalink: 
-date: 2023-10-23
-last_modified_at: 
+date: 2023-10-31
+last_modified_at: 2023-11-02
 toc: "true"
 toc_label: 
 toc_icon: 
@@ -13,9 +13,9 @@ comments:
 search: 
 excerpt: "You have probably heard that before, but the real meaning behind this idea is not what you might think"
 header:
-  teaser: /images/photos/AHVJ5357.jpg
+  teaser: /images/posts/FanHo1954_teaser.jpg
   # image: 
-  og_image: /images/photos/AHVJ5357.jpg
+  og_image: /images/posts/FanHo1954_teaser.jpg
   # image_description: 
   # overlay_image: /images/photos/AHVJ5357.jpg
   # overlay_filter: 0.5
@@ -30,7 +30,7 @@ header:
 # collection: 
 # entries_layout: grid
 # classes: wide
-tags: 
+tags: data storytelling philosophy science
 subject: 
 type: 
 topic: 
@@ -45,7 +45,11 @@ Especially now, the phrase "data speaks for itself" is a well-known sentence fou
 
 It seems that the main critical reply to the statement that "data speaks for itself" is that data `storytelling` is more important than letting data speak for itself because data does not speak, and "we need to speak for the data". While mentioning that we should interpret data and know the audience before tailoring the message does indeed make sense, it fails to make clear hidden aspects of the entire process. 
 
-The discussion of what is reading data and what is interpreting data has its roots in the conundrum of absolute truth or laws of Nature. Whether we derive or discover knowledge by observing the world, as Aristotle said, or actively impose our laws upon Nature, as [Kant](https://en.wikipedia.org/wiki/Critique_of_Pure_Reason) believed: "Our intellect does not draw its laws from nature, but imposes its laws upon nature". Similarly, we can ask if mathematics is simply [discovered or created](https://www.youtube.com/watch?v=ujvS2K06dg4&t=69s) by us instead. Yet, for the practical use of data, which is not about basic laws of Nature, the picture is much simpler.
+The discussion of what is reading data and what is interpreting data has its roots in the conundrum of absolute truth or laws of Nature. Whether we derive or discover knowledge by observing the world, as Aristotle said, or actively impose our laws upon Nature, as [Kant](https://en.wikipedia.org/wiki/Critique_of_Pure_Reason) believed: "Our intellect does not draw its laws from nature, but imposes its laws upon nature". Similarly, we can ask if mathematics is simply discovered or created by us instead. 
+
+{% include video id="ujvS2K06dg4" provider="youtube" %}
+
+Yet, for the practical use of data, which is not about basic laws of Nature, the picture is much simpler.
 
 #### **The selective nature of observations** 
 
@@ -55,7 +59,7 @@ Similar to a photograph, data is captured as the result of observations. Observa
 
 In Street Photography, [Joel Meyerowitz](https://en.wikipedia.org/wiki/Joel_Meyerowitz) introduced a related concept  of `bruising` the scene, which is a more fine-grained version of staged photography, where the photographer tries to interfere as little as possible with the image being captured. Even if they succeed in not bruising the scene, they will still be either "fishing" or "hunting" for a photograph, meaning they will carefully choose their subject(s), the main object of their observation. 
 
-**Styles in Street Photography**  
+<i class="fa-solid fa-circle-info"></i> **Styles in Street Photography**  
 _Fishing_: Choose the environment or background and patiently wait for the main subject.  
 _Hunting_: Constantly move to find the interesting moment as it happens.  
 {: .notice--info}
@@ -72,7 +76,7 @@ Of course not. Here is a staged photo by [Fan Ho](https://en.wikipedia.org/wiki/
 
 As a practical example from Physics, the $4.5 billion particle accelerator, LHC, was in search of the [Higgs particle](https://en.wikipedia.org/wiki/Search_for_the_Higgs_boson), but it was even designed and precisely tuned to find a particle within the energy range predicted by a theory, the Standard Model (SM).
 
-**Higgs boson**  
+<i class="fa-regular fa-clipboard"></i> **Higgs boson**  
 _Higgs SM-theory_: There is a SM-like Higgs boson with mass in the range \[70, 800\] GeV.   
 _Experiments_: Searched and discovered a particle with mass ~ 125.3 GeV.
 {: .notice--primary} 

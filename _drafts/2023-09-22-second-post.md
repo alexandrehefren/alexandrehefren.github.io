@@ -23,8 +23,8 @@ $$\partial_x f = x^{\lambda}$$
 </figure>
 
 ## ---
-![](/images/posts/Pastedimage20230919115500.png){: .align-right height="300px" width="300px"}
 
+![](/images/posts/Pastedimage20230919115500.png){: .align-right height="300px" width="300px"}
 
 
 

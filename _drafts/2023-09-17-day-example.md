@@ -78,6 +78,7 @@ _This is Part of my test._
 <i class="fa-regular fa-envelope"></i>
 <i class="fa-solid fa-image"></i>
 
+
 <i class="fa-regular fa-clipboard"></i> info: _This is Part of my test._
 {: .notice--info}
 
@@ -86,6 +87,7 @@ _This is Part of my test._
 
 
 
+![test](/assets/images/IMG_4894-2.png){: .align-center height="100px" width="100px"}
 
 
 

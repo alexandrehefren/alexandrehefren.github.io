@@ -44,7 +44,7 @@ The name is inspired by an esteemed and wise teacher of mine who once said, in f
 **Man is an unfinished being who learns as long as he lives and lives as long as he learns.** 
 Cultivate yourself. Be curious. Have a critical spirit. Question, doubt, ask. Travel, both in the real world and virtually. 
 And, no matter how much you read, learn, and know, follow the great Socrates in saying:
-'I only know that I know nothing'. " (Genuino Sales)
+'I only know that I know nothing'."  (Genuino Sales)
 
 I believe that the acronym `LWL` encapsulates this message in a symmetrical manner, serving as a reminder that `Learning` and `Living` are equally important - *interdependent* - and they should be balanced throughout one's life. 
 That we should _learn from what we have lived and also live from what we have learned_.
