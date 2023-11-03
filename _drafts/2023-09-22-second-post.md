@@ -27,7 +27,6 @@ $$\partial_x f = x^{\lambda}$$
 ![](/images/posts/Pastedimage20230919115500.png){: .align-right height="300px" width="300px"}
 
 
-
 <figure style="width: 70%" class="align-center">
   <img src="/images/photos/AHVJ5357.jpg" alt="sky">
 </figure>
