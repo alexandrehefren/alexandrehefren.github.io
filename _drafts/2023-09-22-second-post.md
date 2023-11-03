@@ -5,7 +5,7 @@ header:
   teaser: /images/photos/AHVJ5357.jpg
 ---
 
-#Post 2
+#Post 2 updated
 
 THIS IS INSIDE A CALLOUT!
 \newline 
