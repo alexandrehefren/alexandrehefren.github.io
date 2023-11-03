@@ -5,7 +5,7 @@ header:
   teaser: /images/photos/AHVJ5357.jpg
 ---
 
-#Post 2
+#Post 2 updated
 
 THIS IS INSIDE A CALLOUT!
 \newline 
@@ -25,7 +25,6 @@ $$\partial_x f = x^{\lambda}$$
 ## ---
 
 ![](/images/posts/Pastedimage20230919115500.png){: .align-right height="300px" width="300px"}
-
 
 
 <figure style="width: 70%" class="align-center">
