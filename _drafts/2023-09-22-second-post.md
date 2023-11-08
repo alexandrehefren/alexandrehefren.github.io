@@ -12,7 +12,7 @@ THIS IS INSIDE A CALLOUT!
 $$\partial_x f = x^{\lambda}$$
 {: .notice--info}
 
-\\[  X_0 \\]
+\\[  X_0 \\]_
 
 (images/posts/Pasted image 20230919115500)
 

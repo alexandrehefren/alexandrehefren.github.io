@@ -1,7 +1,7 @@
 ---
 permalink:
 layout: single
-title: An Obsidian example
+title: a draft test
 toc: true
 toc_label: "Content"
 # toc_icon: "cog"
@@ -140,46 +140,9 @@ See: **This week**
 [[W37-2023]]
 
 ## Today's links already created:
+
 ```dataview
 LIST 
 from outgoing([[]])
 where length(file.tags) !=0
-```
-
-Today's links to be created:
-```dataview
-LIST 
-from outgoing([[]])
-where !file.tags
-```
-
-> [!info] Files modified **today**
-> ```dataview
-table problem, topic, file.mday
-from "/"
-WHERE file.mday = date("2023-09-17")
-sort file.mtime desc
-limit 11
-
-# This month so far...
-
-```dataview
-table rating, feeling, urgency
-from "Calendar Notes"
-where contains(date, "09/2023")
-sort rating desc
-```
->Note: try to implement sum(rating)/1length(rating) AS "average"
-
-ere length(file.tags) !=0
-
-
-# This month so far...
-
-``` python
-dataview
-table rating, feeling, urgency
-from "Calendar Notes"
-where contains(date, "09/2023")
-sort rating desc
 ```
