@@ -8,6 +8,7 @@ Note that it does not require the standard file format name.
  {% capture mynotice %}
 
 **Extended notice box**:
+
 * You can include lists
 
 * and even fenced code blocks:
