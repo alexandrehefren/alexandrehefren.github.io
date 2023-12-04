@@ -10,18 +10,18 @@ classes: wide
 # image_description: "A description of the image"
 # caption: "Photo credit: [**Unsplash**](https://unsplash.com)"  
 author_profile: true
-title-color: green
+# title-color: green
 header: 
-    overlay_image: images/photos/AHVJ5357.jpg
-    # image: images/photos/AHVJ5357-2.jpg
-    # image_description: "A description of the image"
+    overlay_image: images/photos/AHVJ3210-5.jpg
+    # image: images/photos/AHVJ3743.jpg
+    # image_description: ""
+    overlay_filter: "0.1"
     # caption: ""  
-    # actions:
-    # - label:       #"More Info"
-    #   url:         #"https://unsplash.com"
+    actions:
+      - label: 'Instagram <i class="fab fa-fw fa-instagram"></i>'      #"More Info"
+        url:  "https://www.instagram.com/alexandre.hefren/"        #"https://unsplash.com"
+        btn_class: "btn--info"
 excerpt: "Probing light with a camera"
-
-
 show_excerpts: # true (default), false
 sort_by: # date (default), title or any metadata key added to the collection's documents
 sort_order: # forward (default), reverse
@@ -33,10 +33,10 @@ sort_order: # forward (default), reverse
 
 
 
-When I moved to the UK to pursue my PhD at York, I was excited to get my first camera to
+When I moved to the UK to pursue my PhD at York, I was excited to get my first DSLR camera to
 document the novel enviroment around me.
 
-I began with an APS-C DSLR from Nikon, which served me well as a starting point until I started exploring street photography. However, its slow focus speed was an issue on the streets. In 2023, I upgraded to a 35 mm (full-frame) mirrorless from Canon, which is my main camera now. Being full frame, it also allows more light onto the sensor, improving image quality in low-light situations.
+I started with an APS-C DSLR from Nikon, which served me well as a starting point until I began exploring street photography. However, its slow focus speed was an issue on the streets. In 2023, I upgraded to a 35 mm (full-frame) mirrorless from Canon, which is now my main camera. Being full frame, it allows more light onto the sensor, which is especially useful for night photography.
 
 I discovered enjoyment in photography from a desire to "capture" time and reflecting on it later. Initially, I found myself taking photos primarily when visiting new places or during trips. As I also enjoy walking outdoors, street photography became a natural way for me to continue capturing these frozen moments in time and experimenting with light as I stroll.
 

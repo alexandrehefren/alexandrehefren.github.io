@@ -3,7 +3,7 @@ title: "Posts by Year"
 permalink: /year-archive/
 layout: posts
 header:
-    overlay_image: images/photos/AHVJ5357.jpg
+    overlay_image: images/photos/AHVJ5357-2.jpg
     caption: ""
 author_profile: true
 ---

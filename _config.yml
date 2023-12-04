@@ -347,8 +347,7 @@ collections:
     output: true
     permalink: /:collection/:path/  
     
-  # portfolio:
-
+  # projects:
 
 # picture:
 #   source: "assets/images" 
