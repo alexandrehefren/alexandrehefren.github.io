@@ -90,13 +90,22 @@ _This is Part of my test._
 ![test](/assets/images/IMG_4894-2.png){: .align-center height="100px" width="100px"}
 
 
+bullet points: 
+  - test 
+  - test 2
+  - test 3
+{: .notice--danger}
+
+Justified text. also: text-center, text-right, text-left, text-nowrap
+{: .text-justify}
+
 
 
 
 
 THIS `test` for markdown ".md".
 
-The `highlight color` is not dark enough.
+The `highlight color` was not dark enough. I modified it.
 
 `This is one backtick` and this is normal text without backticks.
 
