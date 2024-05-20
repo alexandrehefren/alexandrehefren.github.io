@@ -11,7 +11,7 @@ author_profile: true
 read_time: 
 comments: 
 search: 
-excerpt: "The tradition of teaching to test is a rejection of questions"
+excerpt: "The tradition of teaching to test is a way of impairing human progress by the rejection of questions"
 header:
   teaser: /images/posts/TTT-7114.jpg
   # image: /images/posts/TTT-7114(2).jpg
