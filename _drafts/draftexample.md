@@ -10,7 +10,7 @@ Note that it does not require the standard file format name.
 
 - You can include lists
 
-* and even fenced code blocks:
+* and even fenced code blocks::
 
 ```html   %% should be ``` %%
 
