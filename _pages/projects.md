@@ -47,7 +47,7 @@ feature_row0:
         - polymer
         - biology
         - synthetic data
-feature_row:
+feature_row1:
   - image_path: images/posts/silkprotein-project/silkprotein.png
     alt: "placeholder image 1"
     title: "Placeholder 1"

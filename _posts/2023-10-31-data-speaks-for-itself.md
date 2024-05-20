@@ -45,7 +45,9 @@ Especially now, the phrase "data speaks for itself" is a well-known sentence fou
 
 It seems that the main critical reply to the statement that "data speaks for itself" is that data `storytelling` is more important than letting data speak for itself because data does not speak, and "we need to speak for the data". While mentioning that we should interpret data and know the audience before tailoring the message does indeed make sense, it fails to make clear hidden aspects of the entire process. 
 
-The discussion of what is reading data and what is interpreting data has its roots in the conundrum of absolute truth or laws of Nature. Whether we derive or discover knowledge by observing the world, as Aristotle said, or actively impose our laws upon Nature, as [Kant](https://en.wikipedia.org/wiki/Critique_of_Pure_Reason) believed: "Our intellect does not draw its laws from nature, but imposes its laws upon nature". Similarly, we can ask if mathematics is simply discovered or created by us instead. 
+ 
+The discussion of what is reading data and what is interpreting data has its roots in the conundrum of absolute truth or laws of Nature. Whether we derive or discover knowledge by observing the world, as Aristotle said, or actively impose our laws upon Nature, as [Kant](https://en.wikipedia.org/wiki/Critique_of_Pure_Reason) <span id="kant"> believed:</span> "Our intellect does not draw its laws from nature, but imposes its laws upon nature". Similarly, we can ask if mathematics is simply discovered or created by us instead.
+
 
 {% include video id="ujvS2K06dg4" provider="youtube" %}
 
@@ -118,7 +120,6 @@ Data speaking for itself should really mean the (posterior) **non-subjective** r
 - *Data storytelling*:  Given the data that has already been observed or collected, which is never free of the inherent choices made by its designers or observers, find the pitch or the expression that best fits your interpretation of the data. What is considered "best" here is highly **subjective**, as it depends on the purposes and the audience for which the data is intended to serve.  
 
 Thus, data can indeed speak for itself, or better still, there is a non-subjective reading of data,  but what it has to say is precisely what was selected by its creators or observers during the initial data collection process. One can, however, engage in various forms of storytelling but cannot avoid the inherent selection, the residual bruise, that was imprinted on the data even before any subsequent interpretation. 
-
 
 
 
