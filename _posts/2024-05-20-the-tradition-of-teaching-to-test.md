@@ -1,5 +1,5 @@
 ---
-title: The Tradition of Teaching to Test (TTT)
+title: The Tradition of Teaching to Test
 layout: single
 permalink: 
 date: 2024-05-20
