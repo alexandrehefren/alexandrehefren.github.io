@@ -21,7 +21,8 @@ For my academic genealogy, see my PhD supervisor [Edward Corrigan](https://www.m
 
 ## Work Experience 
 
-**Postdoctoral Research Associate** - School of Physics, Engineering and Technology, University of York  
+**Research Fellow** - Faculty of Health and Life Sciences, University of Exeter  
+**Postdoctoral Research Associate** - School of Physics, Engineering and Technology, University of York    
     - Project: Self-Assembly of Silk Protein. PI: [Tom McLeish](https://en.wikipedia.org/wiki/Tom_McLeish)     
     - Work on a cross-disciplinary project within the Physics of Life group    
     - Areas: Polymer Physics, Biological Physics, Data Analysis, Applied Mathematics and Statistics      
