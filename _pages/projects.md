@@ -48,17 +48,24 @@ feature_row0:
         - biology
         - synthetic data
 feature_row1:
-  - image_path: images/posts/silkprotein-project/silkprotein.png
-    alt: "placeholder image 1"
-    title: "Placeholder 1"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
-    url: "#test-link"
-    btn_label: "Read More"
+  - image_path: images/posts/londonweather-project/londonweather.png
+    alt: "London Weather over the years"
+    title: "London Weather"
+    excerpt: "Despite living in Manchester, a city notorious for its wet and windy weather, I’ve developed an interest in understanding the dynamics of the weather in the UK. I chose to focus on London due to the availability of detailed public data, using it as a case study for England’s weather. This analysis attempts to make sense of the figures behind a frequent topic of local conversation: the weather."
+    url: "https://github.com/Alexandre-Hefren/TimeSeries-weather"
+    btn_label: "Code"
     btn_class: "btn--primary"
     # url2: "https://"
     # btn_label2: "Code for"
     # btn_class: "btn--primary"
-    tags: test
+    tags:
+        - python
+        - london
+        - weather
+        - data analysis
+        - machine learning
+        - data visualisation
+        - UK
 feature_row2:
   - image_path: images/posts/silkprotein-project/silkprotein.png
     alt: "placeholder image 2"
@@ -97,6 +104,8 @@ feature_row4:
 <!-- {% include feature_row id="intro" type="center" %} -->
 
 {% include feature_row id="feature_row0" type="left" %}
+
+{% include feature_row id="feature_row1" type="left" %}
 
 <!-- 
 {% include feature_row id="feature_row" type="left" %}
