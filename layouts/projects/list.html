@@ -1,0 +1,33 @@
+{{ define "main" }}
+<div class="projects-page">
+  <div class="projects-page-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.excerpt -}}<p>{{ . }}</p>{{- end -}}
+  </div>
+
+  {{- range .Params.projects -}}
+  {{- $proj := . -}}
+  <div class="project-row">
+    <div class="project-row-img">
+      {{- with .image_path -}}
+      <img src="{{ . }}" alt="{{ $proj.alt }}" loading="lazy">
+      {{- end -}}
+    </div>
+    <div class="project-row-content">
+      <h2>{{ .title }}</h2>
+      <p>{{ .excerpt }}</p>
+      {{- with .tags -}}
+      <div class="project-tags">
+        {{- range . -}}<span class="tag">{{ . }}</span>{{- end -}}
+      </div>
+      {{- end -}}
+      {{- with .url -}}
+      <a href="{{ . }}" class="project-btn" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-code"></i> {{ $proj.btn_label | default "View" }}
+      </a>
+      {{- end -}}
+    </div>
+  </div>
+  {{- end -}}
+</div>
+{{ end }}

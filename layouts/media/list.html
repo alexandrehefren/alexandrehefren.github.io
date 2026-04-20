@@ -1,0 +1,104 @@
+{{ define "main" }}
+<div class="media-page">
+
+  {{/* ── Page header ── */}}
+  <div class="media-page-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.excerpt -}}<p class="media-page-tagline">{{ . }}</p>{{- end -}}
+  </div>
+
+  {{/* ── Section nav: anchor pills ── */}}
+  <nav class="media-page-nav" aria-label="Page sections">
+    {{- with .Params.videos -}}
+    <a href="#videos" class="media-nav-pill"><i class="fas fa-play-circle"></i> Videos</a>
+    {{- end -}}
+    {{- with .Params.writing_groups -}}
+    <a href="#writing" class="media-nav-pill"><i class="fas fa-pen-nib"></i> Earlier Writing</a>
+    {{- end -}}
+  </nav>
+
+  {{/* ── Videos section ── */}}
+  {{- with .Params.videos -}}
+  <section class="media-section" id="videos">
+    <div class="media-section-eyebrow">
+      <span class="media-section-tag"><i class="fas fa-play-circle"></i> Videos</span>
+    </div>
+    <div class="media-section-header-row">
+      <div>
+        <h2 class="media-section-title">Latest Videos</h2>
+        <p class="media-section-desc">Physics and science lectures. More videos are planned — the full channel is linked below.</p>
+      </div>
+      {{- with $.Params.youtube_channel_url -}}
+      <a href="{{ . }}" class="media-channel-link" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i> YouTube channel <i class="fas fa-arrow-right"></i>
+      </a>
+      {{- end -}}
+    </div>
+
+    <div class="videos-grid">
+      {{- range . -}}
+      <div class="video-card">
+        <div class="video-embed-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/{{ .id }}"
+            title="{{ .title }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"></iframe>
+        </div>
+        <div class="video-card-meta">
+          <span class="video-year">{{ .year }}</span>
+          <h3>{{ .title }}</h3>
+          {{- with .description -}}<p>{{ . }}</p>{{- end -}}
+        </div>
+      </div>
+      {{- end -}}
+    </div>
+  </section>
+  {{- end -}}
+
+  <div class="media-section-divider"></div>
+
+  {{/* ── Earlier Writing section ── */}}
+  {{- with .Params.writing_groups -}}
+  <section class="media-section" id="writing">
+    <div class="media-section-eyebrow">
+      <span class="media-section-tag"><i class="fas fa-pen-nib"></i> Earlier Writing</span>
+    </div>
+    <h2 class="media-section-title">Earlier Writing</h2>
+    <p class="media-section-desc">Writing from before this site — archived here for reference.</p>
+
+    {{- range . -}}
+    <div class="writing-group">
+      <div class="writing-group-header">
+        <div class="writing-group-title-row">
+          <h3 class="writing-group-title">{{ .title }}</h3>
+          {{- with .lang -}}<span class="writing-lang">{{ . }}</span>{{- end -}}
+        </div>
+        {{- with .description -}}<p class="writing-group-desc">{{ . }}</p>{{- end -}}
+      </div>
+      <div class="writing-list">
+        {{- range .entries -}}
+        <a class="writing-entry" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+          <div class="writing-entry-main">
+            <div class="writing-entry-titles">
+              <span class="writing-entry-title">{{ .title }}</span>
+              {{- with .title_en -}}<span class="writing-entry-title-en">{{ . }}</span>{{- end -}}
+            </div>
+            {{- with .description -}}<p class="writing-entry-desc">{{ . }}</p>{{- end -}}
+          </div>
+          <div class="writing-entry-aside">
+            <span class="writing-year">{{ .year }}</span>
+            <span class="writing-entry-cta"><i class="fas fa-arrow-up-right-from-square"></i></span>
+          </div>
+        </a>
+        {{- end -}}
+      </div>
+    </div>
+    {{- end -}}
+  </section>
+  {{- end -}}
+
+</div>
+{{ end }}

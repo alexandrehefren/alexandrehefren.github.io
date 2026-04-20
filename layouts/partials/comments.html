@@ -1,0 +1,50 @@
+{{- if not .Params.disable_comments -}}
+
+{{/* ── giscus (preferred — free, no ads, GitHub-based) ── */}}
+{{- if and site.Params.giscus site.Params.giscus.repo -}}
+{{- with site.Params.giscus -}}
+<section class="post-comments" id="comments">
+  <h2>Comments</h2>
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ .repo }}"
+    data-repo-id="{{ .repoID }}"
+    data-category="{{ .category }}"
+    data-category-id="{{ .categoryID }}"
+    data-mapping="{{ .mapping | default "pathname" }}"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="{{ .theme | default "preferred_color_scheme" }}"
+    data-lang="{{ .lang | default "en" }}"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+</section>
+{{- end -}}
+{{- end -}}
+
+{{/* ── Disqus (alternative — uncomment params in hugo.toml to use instead) ──
+{{- with site.Params.disqusShortname -}}
+<section class="post-comments" id="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = {{ $.Permalink }};
+      this.page.identifier = {{ $.RelPermalink }};
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://' + {{ . }} + '.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+{{- end -}}
+── end Disqus */}}
+
+{{- end -}}

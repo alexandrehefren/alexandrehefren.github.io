@@ -1,0 +1,36 @@
+{{ define "main" }}
+
+{{- /* Hero banner with header image */ -}}
+{{- with .Params.headerImage -}}
+<div class="photo-hero">
+  <img src="{{ . }}" alt="{{ $.Title }}" loading="eager">
+  <div class="photo-hero-overlay">
+    <h1>{{ $.Title }}</h1>
+    {{- with $.Params.excerpt -}}<p>{{ . }}</p>{{- end -}}
+  </div>
+</div>
+{{- end -}}
+
+<div class="photo-gallery-page">
+  {{- with .Params.gallery -}}
+  <div class="photo-gallery">
+    {{- range . -}}
+    <figure class="gallery-item">
+      <a href="{{ .image_path }}">
+        <img src="{{ .image_path }}" alt="{{ .alt }}" loading="lazy" title="{{ .title }}">
+      </a>
+      <figcaption>{{ .title }}</figcaption>
+    </figure>
+    {{- end -}}
+  </div>
+  {{- end -}}
+
+  <p class="photo-instagram-link">
+    See more on <a href="{{ site.Params.social.instagram }}" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+  </p>
+</div>
+
+{{ partial "lightbox.html" . }}
+{{ end }}

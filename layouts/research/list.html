@@ -1,0 +1,9 @@
+{{ define "main" }}
+<div class="research-page">
+  <h1>{{ .Title }}</h1>
+  {{- with .Params.excerpt -}}<p class="research-subtitle">{{ . }}</p>{{- end -}}
+  <div class="research-body content">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}

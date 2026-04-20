@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+  <div class="taxonomy-header">
+    <span class="taxonomy-label">Tag</span>
+    <h1>{{ .Title }}</h1>
+    <p class="taxonomy-count">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</p>
+  </div>
+
+  <div class="taxonomy-posts">
+    {{- range .Pages -}}
+    {{ partial "post-card.html" . }}
+    {{- end -}}
+  </div>
+
+  <div style="margin-top:var(--sp-8); text-align:center">
+    <a href="/tags/" class="btn btn-secondary">&larr; All tags</a>
+  </div>
+</div>
+{{ end }}

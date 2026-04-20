@@ -1,0 +1,116 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1 class="hero-name">{{ site.Params.author }}</h1>
+      <p class="hero-subtitle">Physicist &amp; Genomics Researcher{{ with site.Params.location }} &middot; {{ . }}{{ end }}</p>
+      <div class="hero-bio content">{{ .Content }}</div>
+      <div class="hero-actions">
+        <a href="/about/" class="btn btn-primary">About Me</a>
+        {{/* <a href="/research/" class="btn btn-secondary">Research</a> */}}
+        {{/* <a href="/posts/" class="btn btn-secondary">Posts</a> */}}
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="{{ site.Params.avatar }}" alt="{{ site.Params.author }}" loading="eager">
+    </div>
+  </div>
+</section>
+
+{{/*
+  FOCUS AREAS — frozen, not yet published. Uncomment and fill when ready.
+
+<section class="focus-areas">
+  <div class="focus-areas-inner">
+    <div class="focus-card">
+      <div class="focus-card-icon">∂</div>
+      <h3>Area Name</h3>
+      <p>One or two sentences describing this focus area and the kind of work it covers.</p>
+    </div>
+  </div>
+</section>
+*/}}
+
+<!-- Recent Posts -->
+<section class="home-section">
+  <div class="home-section-hd">
+    <h2>Recent Posts</h2>
+    <a href="/posts/">All posts &rarr;</a>
+  </div>
+  <div class="recent-posts">
+    {{- range (where site.RegularPages "Section" "posts" | first 3) -}}
+      {{ partial "post-card.html" . }}
+    {{- end -}}
+  </div>
+</section>
+
+<!-- Projects -->
+{{- $projects := site.GetPage "/projects" -}}
+{{- with $projects -}}
+{{- with .Params.projects -}}
+<section class="home-section">
+  <div class="home-section-hd">
+    <h2>Projects</h2>
+    <a href="/projects/">All projects &rarr;</a>
+  </div>
+  <div class="home-projects-grid">
+    {{- range first 3 . -}}
+    {{- $proj := . -}}
+    <div class="home-project-card">
+      {{- with .image_path -}}
+      <img src="{{ . }}" alt="{{ $proj.alt }}" loading="lazy">
+      {{- end -}}
+      <div class="home-project-card-body">
+        <h3>{{ .title }}</h3>
+        <p>{{ .excerpt | truncate 150 }}</p>
+        {{- with .tags -}}
+        <div class="tags">
+          {{- range first 4 . -}}<span class="tag">{{ . }}</span>{{- end -}}
+        </div>
+        {{- end -}}
+        {{- with .url -}}
+        <a href="{{ . }}" class="btn btn-primary" target="_blank" rel="noopener">Code</a>
+        {{- end -}}
+      </div>
+    </div>
+    {{- end -}}
+  </div>
+</section>
+{{- end -}}
+{{- end -}}
+
+<!-- Videos -->
+{{- $mediaPage := site.GetPage "/media" -}}
+{{- with $mediaPage -}}
+{{- with .Params.videos -}}
+<section class="home-section">
+  <div class="home-section-hd">
+    <h2>Videos</h2>
+    <a href="/media/#videos">Media &rarr;</a>
+  </div>
+  <div class="videos-grid">
+    {{- range . -}}
+    <div class="video-card">
+      <div class="video-embed-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/{{ .id }}"
+          title="{{ .title }}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+      <div class="video-card-meta">
+        <span class="video-year">{{ .year }}</span>
+        <h3>{{ .title }}</h3>
+      </div>
+    </div>
+    {{- end -}}
+  </div>
+</section>
+{{- end -}}
+{{- end -}}
+
+{{ end }}

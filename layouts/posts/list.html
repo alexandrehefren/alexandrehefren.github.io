@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="posts-page">
+  <div class="posts-page-header">
+    <h1>Posts</h1>
+    <p>Writing on science, education, philosophy and ideas.</p>
+  </div>
+
+  {{- with site.Taxonomies.tags -}}
+  <div class="tags-filter">
+    <div class="tags-filter-label">Browse by tag</div>
+    <div class="tags">
+      {{- range $name, $pages := . -}}
+      <a href="{{ "/tags/" | relURL }}{{ $name | urlize }}/" class="tag">
+        {{ $name }}&thinsp;({{ len $pages }})
+      </a>
+      {{- end -}}
+    </div>
+  </div>
+  {{- end -}}
+
+  <div class="posts-grid">
+    {{- range .Pages -}}
+      {{ partial "post-card.html" . }}
+    {{- end -}}
+  </div>
+</div>
+{{ end }}

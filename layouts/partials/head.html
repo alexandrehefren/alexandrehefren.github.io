@@ -1,0 +1,63 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script>
+// Apply saved theme immediately to prevent flash
+(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+</script>
+
+{{- $title := cond .IsHome .Site.Title (printf "%s — %s" .Title .Site.Title) -}}
+<title>{{ $title }}</title>
+
+{{- $description := .Params.description | default .Params.excerpt | default .Site.Params.description -}}
+<meta name="description" content="{{ $description }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- with .Site.Params.googleVerification -}}
+<meta name="google-site-verification" content="{{ . }}">
+{{- end -}}
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+{{- $ogImage := .Params.ogImage | default .Params.teaser | default .Site.Params.ogImage -}}
+{{- with $ogImage -}}<meta property="og:image" content="{{ . | absURL }}">{{- end -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{- with $ogImage -}}<meta name="twitter:image" content="{{ . | absURL }}">{{- end -}}
+
+<!-- CSS — single bundled file -->
+{{- $css := resources.Get "css/main.css" -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+
+<!-- Font Awesome (for icons in post content & footer) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!-- KaTeX (only on math pages) -->
+{{- if .Params.math -}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:false},{left:'\\[',right:'\\]',display:true}]});"></script>
+{{- end -}}
+
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- RSS -->
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
+{{- end }}
+
+<!-- Google Analytics (production only) -->
+{{- if and hugo.IsProduction .Site.Params.googleAnalyticsID -}}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalyticsID }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ .Site.Params.googleAnalyticsID }}');</script>
+{{- end -}}

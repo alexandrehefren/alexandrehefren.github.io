@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+  <div class="taxonomy-header">
+    <h1>Tags</h1>
+    <p class="taxonomy-count">{{ len .Pages }} tags</p>
+  </div>
+
+  <div class="tag-cloud">
+    {{- range .Pages -}}
+    <a href="{{ .RelPermalink }}">{{ .Title }} <span class="tag-count">({{ len .Pages }})</span></a>
+    {{- end -}}
+  </div>
+</div>
+{{ end }}

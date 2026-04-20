@@ -1,0 +1,71 @@
+baseURL = "https://www.alexandrehefren.com/"
+languageCode = "en-GB"
+title = "Learn While Live"
+
+# Hugo extended not required but installed — safe to keep
+enableRobotsTxt = true
+enableGitInfo = false
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # allow raw HTML in posts (figures, Font Awesome <i> tags)
+    [markup.goldmark.extensions]
+      footnote = true  # teaching-to-test post uses [^1] footnotes
+  [markup.highlight]
+    style = "monokailight"
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[taxonomies]
+  tag = "tags"
+
+[permalinks]
+  posts = "/posts/:slug/"
+  photography = "/photography/:slug/"
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  author = "Alexandre Hefren"
+  description = "Personal Webpage - Learn While Live"
+  avatar = "/images/photos/AHVJ2874-Edit.jpg"
+  profileImage = "/assets/images/DSC_1435-2.jpg"
+  defaultTeaser = "/images/photos/AHVJ5357.jpg"
+  ogImage = "/assets/images/ogimage1.png"
+  googleVerification = "cvNF788qNhZj2ORsKDwbdLHN1nt-w7a0YvtdrPGMQGs"
+  googleAnalyticsID = "G-W887YTKJWJ"
+  wordsPerMinute = 200
+
+  # ── giscus comments (free, GitHub-based, no ads) ──
+  # To enable: go to https://giscus.app, fill in your repo details,
+  # and paste the values below. Requires a public GitHub repo with
+  # Discussions enabled and the giscus app installed.
+  [params.giscus]
+    repo       = ""          # e.g. "Alexandre-Hefren/alexandrehefren.github.io"
+    repoID     = ""          # from giscus.app configurator
+    category   = ""          # e.g. "Announcements"
+    categoryID = ""          # from giscus.app configurator
+    mapping    = "pathname"  # maps each post URL to a Discussion
+    theme      = "preferred_color_scheme"
+    lang       = "en"
+
+  # ── Disqus (alternative — uncomment and fill shortname to use) ──
+  # disqusShortname = "your-disqus-shortname"
+
+  [params.social]
+    linkedin = "https://uk.linkedin.com/in/alexandrehefren"
+    github = "https://github.com/Alexandre-Hefren"
+    orcid = "https://orcid.org/0000-0002-7691-2132"
+    email = "mailto:contact@alexandrehefren.com"
+    twitter = "https://twitter.com/alexandrehefren"
+    instagram = "https://www.instagram.com/alexandre.hefren/"

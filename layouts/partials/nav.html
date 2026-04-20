@@ -1,0 +1,27 @@
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">Learn <span class="nav-brand-accent">While</span> Live</a>
+
+    <!-- CSS-only hamburger toggle -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="nav-links" role="list">
+      {{- range site.Data.navigation.main -}}
+      <a href="{{ .url }}"
+         role="listitem"
+         {{- if eq $.RelPermalink .url }} aria-current="page"{{ end -}}>
+        {{ .title }}
+      </a>
+      {{- end -}}
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-sun"></i>
+      </button>
+    </div>
+  </div>
+</nav>

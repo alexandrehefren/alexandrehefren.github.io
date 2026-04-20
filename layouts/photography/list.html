@@ -1,0 +1,27 @@
+{{ define "main" }}
+
+<div class="photography-page">
+  <div class="photography-hub-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.excerpt -}}<p class="photography-hub-tagline">{{ . }}</p>{{- end -}}
+  </div>
+
+  <div class="photography-hub-intro content">
+    {{ .Content }}
+  </div>
+
+  <div class="photography-hub-grid">
+    {{- range .Pages -}}
+    <a href="{{ .RelPermalink }}" class="photo-hub-card">
+      {{- with .Params.headerImage -}}
+      <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+      {{- end -}}
+      <div class="photo-hub-card-caption">
+        <h2>{{ .Title }}</h2>
+        {{- with .Params.excerpt -}}<p>{{ . }}</p>{{- end -}}
+      </div>
+    </a>
+    {{- end -}}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,30 @@
+{{- $post := . -}}
+<article class="post-card">
+  {{- if $post.Params.teaser -}}
+  <img class="post-card-img" src="{{ $post.Params.teaser }}" alt="{{ $post.Title }}" loading="lazy">
+  {{- else -}}
+  <div class="post-card-img-placeholder"></div>
+  {{- end -}}
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <span>{{ $post.Date.Format "2 Jan 2006" }}</span>
+      <span>&middot;</span>
+      <span>{{ $post.ReadingTime }}&thinsp;min</span>
+    </div>
+    <h3 class="post-card-title">
+      <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+    </h3>
+    {{- if $post.Params.excerpt -}}
+    <p class="post-card-excerpt">{{ $post.Params.excerpt }}</p>
+    {{- else -}}
+    <p class="post-card-excerpt">{{ $post.Summary | plainify | truncate 120 }}</p>
+    {{- end -}}
+    {{- with $post.Params.tags -}}
+    <div class="tags">
+      {{- range first 3 . -}}
+      <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">{{ . }}</a>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </div>
+</article>
