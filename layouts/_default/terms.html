@@ -1,13 +1,20 @@
 {{ define "main" }}
+{{ $terms := slice }}
+{{ range .Pages }}
+  {{ $postCount := len (where .Pages "Section" "posts") }}
+  {{ if gt $postCount 0 }}
+    {{ $terms = $terms | append (dict "page" . "count" $postCount) }}
+  {{ end }}
+{{ end }}
 <div class="taxonomy-page">
   <div class="taxonomy-header">
     <h1>Tags</h1>
-    <p class="taxonomy-count">{{ len .Pages }} tags</p>
+    <p class="taxonomy-count">{{ len $terms }} tags</p>
   </div>
 
   <div class="tag-cloud">
-    {{- range .Pages -}}
-    <a href="{{ .RelPermalink }}">{{ .Title }} <span class="tag-count">({{ len .Pages }})</span></a>
+    {{- range $terms -}}
+    <a href="{{ .page.RelPermalink }}">{{ .page.Title }} <span class="tag-count">({{ .count }})</span></a>
     {{- end -}}
   </div>
 </div>

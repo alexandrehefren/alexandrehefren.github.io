@@ -4,6 +4,7 @@ slug: "street"
 description: "Street photography by Alexandre Hefren"
 excerpt: "Pieces of a city"
 headerImage: "/images/photos/street/AHVJ2815-3.jpg"
+# headerFocus: "center"   # optional banner crop focus, e.g. "top", "center 30%"
 gallery:
   - url: /images/photos/street/DSC_5328.jpg
     image_path: /images/photos/street/DSC_5328.jpg

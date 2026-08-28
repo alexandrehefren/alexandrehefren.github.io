@@ -5,7 +5,8 @@
   <div class="hero-inner">
     <div class="hero-text">
       <h1 class="hero-name">{{ site.Params.author }}</h1>
-      <p class="hero-subtitle">Physicist &amp; Genomics Researcher{{ with site.Params.location }} &middot; {{ . }}{{ end }}</p>
+      {{/* Previous version: <p class="hero-subtitle">Physicist &amp; Genomics Researcher{{ with site.Params.location }} &middot; {{ . }}{{ end }}</p> */}}
+      <p class="hero-subtitle">Physicist &middot; Genomic Data Scientist{{ with site.Params.location }} &middot; {{ . }}{{ end }}</p>
       <div class="hero-bio content">{{ .Content }}</div>
       <div class="hero-actions">
         <a href="/about/" class="btn btn-primary">About Me</a>
@@ -70,9 +71,24 @@
           {{- range first 4 . -}}<span class="tag">{{ . }}</span>{{- end -}}
         </div>
         {{- end -}}
-        {{- with .url -}}
-        <a href="{{ . }}" class="btn btn-primary" target="_blank" rel="noopener">Code</a>
-        {{- end -}}
+        {{/* Mirrors the Projects page: page_url / code_url / status.
+             `url` is the older single-link form, still honoured. */}}
+        <div class="project-actions">
+          {{- with .page_url -}}
+          <a href="{{ . }}" class="btn btn-primary">Explore</a>
+          {{- end -}}
+          {{- with .code_url -}}
+          <a href="{{ . }}" class="btn {{ if $proj.page_url }}btn-secondary{{ else }}btn-primary{{ end }}" target="_blank" rel="noopener">Code</a>
+          {{- end -}}
+          {{- if and .url (not .page_url) (not .code_url) -}}
+          <a href="{{ .url }}" class="btn btn-primary" target="_blank" rel="noopener">Code</a>
+          {{- end -}}
+          {{- if not .page_url -}}
+          {{- with .status -}}
+          <span class="project-status" title="Not published yet"><i class="fa-regular fa-clock" aria-hidden="true"></i>{{ . }}</span>
+          {{- end -}}
+          {{- end -}}
+        </div>
       </div>
     </div>
     {{- end -}}
@@ -91,7 +107,9 @@
     <a href="/media/#videos">Media &rarr;</a>
   </div>
   <div class="videos-grid">
-    {{- range . -}}
+    {{- /* Home shows only the 2 latest videos (by year) so the 2-column row is
+           always full — no empty slot. The full list lives on the Media page. */ -}}
+    {{- range first 2 (sort . "year" "desc") -}}
     <div class="video-card">
       <div class="video-embed-wrap">
         <iframe

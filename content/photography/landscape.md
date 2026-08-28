@@ -4,6 +4,7 @@ slug: "landscape"
 description: "Landscape photography by Alexandre Hefren"
 excerpt: "Finding beauty"
 headerImage: "/images/photos/landscape/AHVJ3861-2.jpg"
+# headerFocus: "center"   # optional banner crop focus, e.g. "top", "center 30%"
 gallery:
   - url: /images/photos/landscape/DSC_0676.jpg
     image_path: /images/photos/landscape/DSC_0676.jpg

@@ -2,19 +2,14 @@
 title: "Quantum Backflow"
 description: "Interactive visualisation of quantum backflow in the jump defect — the phenomenon where positive-momentum quantum states can carry a negative probability current."
 date: 2024-01-01
-tags:
-  - physics
-  - quantum mechanics
-  - python
-  - fortran
-  - computational physics
+draft: true
 ---
 
 ## Quantum Backflow in the Presence of Defects
 
 Quantum backflow is a striking quantum phenomenon: a free particle with **strictly positive momentum** can nevertheless produce a **negative probability current** in some spatial region. This means the particle is, in a well-defined sense, flowing backwards — not because of any negative-momentum component, but as a purely quantum effect with no classical counterpart.
 
-This was the subject of my doctoral thesis at the University of York (2021): *[Quantum backflow in the presence of defects](https://etheses.whiterose.ac.uk/id/eprint/30009/)*, supervised within the context of integrable quantum field theory.
+This was the subject of my doctoral thesis at the University of York: *[Quantum backflow in the presence of defects](https://etheses.whiterose.ac.uk/id/eprint/30009/)*, supervised within the context of integrable quantum field theory.
 
 ### The Jump Defect
 
@@ -28,6 +23,18 @@ Where β_V(*f*) < 0, backflow occurs.
 
 ---
 
+<!--
+  The interactive visualisation lives at _private/interactive/backflow.html
+  while this page is a draft. Static files are published regardless of
+  draft status, so it was moved out of static/ to keep it off the live site.
+
+  To see it while working on this page, put it back temporarily:
+      mv _private/interactive static/interactive
+      hugo server -D
+
+  When publishing this page for real, move it back permanently and delete
+  the _private folder.
+-->
 <div style="position:relative; width:100%; padding-bottom:52%; overflow:hidden; border-radius:8px; background:#0d1117; margin: 1.5rem 0;">
   <iframe
     src="/interactive/backflow.html"
@@ -47,6 +54,13 @@ The backflow parameter is the **smallest eigenvalue** of an *N* × *N* Hermitian
 
 $$M_{ij} = \frac{P_{\rm cut}}{N} \int f(x)\, j\!\left(x;\, p_i, q_j\right) dx$$
 
-where *j*(*x*; *k*₁, *k*₂) is the Schrödinger bilinear probability current and *f*(*x*) is a Gaussian spatial window. The Python code translating the original Fortran implementation is available at [github.com/AlexandreHefren/quantumbackflow](https://github.com/AlexandreHefren/quantumbackflow).
+where *j*(*x*; *k*₁, *k*₂) is the Schrödinger bilinear probability current and *f*(*x*) is a Gaussian spatial window. The Fortran implementation is available at [github.com/Alexandre-Hefren/Backflow_Defects](https://github.com/Alexandre-Hefren/Backflow_Defects).
+
+<!--
+  The visualisation above is generated in Python from the Fortran output.
+  That code is not published yet — if it is released, mention it here and
+  add `python` back to this project's tags in content/projects/_index.md.
+-->
+
 
 **Reference:** Bostelmann, Cadamuro and Lechner (2017), *Quantum backflow and scattering*, Phys. Rev. A **96**, 012112.

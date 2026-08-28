@@ -1,21 +1,21 @@
 {{ define "main" }}
 <div class="media-page">
 
-  {{/* ── Page header ── */}}
+  {{/* ── Page header (anchor pills sit inside, ABOVE the divider line) ── */}}
   <div class="media-page-header">
     <h1>{{ .Title }}</h1>
     {{- with .Params.excerpt -}}<p class="media-page-tagline">{{ . }}</p>{{- end -}}
-  </div>
 
-  {{/* ── Section nav: anchor pills ── */}}
-  <nav class="media-page-nav" aria-label="Page sections">
-    {{- with .Params.videos -}}
-    <a href="#videos" class="media-nav-pill"><i class="fas fa-play-circle"></i> Videos</a>
-    {{- end -}}
-    {{- with .Params.writing_groups -}}
-    <a href="#writing" class="media-nav-pill"><i class="fas fa-pen-nib"></i> Earlier Writing</a>
-    {{- end -}}
-  </nav>
+    {{/* ── Section nav: anchor pills ── */}}
+    <nav class="media-page-nav" aria-label="Page sections">
+      {{- with .Params.videos -}}
+      <a href="#videos" class="media-nav-pill"><i class="fas fa-play-circle"></i> Videos</a>
+      {{- end -}}
+      {{- with .Params.writing_groups -}}
+      <a href="#writing" class="media-nav-pill"><i class="fas fa-pen-nib"></i> Earlier Writing</a>
+      {{- end -}}
+    </nav>
+  </div>
 
   {{/* ── Videos section ── */}}
   {{- with .Params.videos -}}
@@ -26,7 +26,7 @@
     <div class="media-section-header-row">
       <div>
         <h2 class="media-section-title">Latest Videos</h2>
-        <p class="media-section-desc">Physics and science lectures. More videos are planned — the full channel is linked below.</p>
+        <p class="media-section-desc">From my YouTube channel{{/* More videos on the way. */}}</p>
       </div>
       {{- with $.Params.youtube_channel_url -}}
       <a href="{{ . }}" class="media-channel-link" target="_blank" rel="noopener noreferrer">
@@ -66,8 +66,12 @@
     <div class="media-section-eyebrow">
       <span class="media-section-tag"><i class="fas fa-pen-nib"></i> Earlier Writing</span>
     </div>
+    {{/* Previous version:
     <h2 class="media-section-title">Earlier Writing</h2>
     <p class="media-section-desc">Writing from before this site — archived here for reference.</p>
+    */}}
+    <h2 class="media-section-title">Before This Site</h2>
+    <p class="media-section-desc">Essays and notes archived for reference</p>
 
     {{- range . -}}
     <div class="writing-group">

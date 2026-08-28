@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "About Alexandre Hefren — physicist and genomics researcher."
+description: "About Alexandre Hefren — physicist and genomic data scientist."
 ---
 
 ## About Me
@@ -9,18 +9,19 @@ description: "About Alexandre Hefren — physicist and genomics researcher."
   <img src="/assets/images/DSC_1435-2.jpg" alt="Alexandre Hefren">
 </figure>
 
-I am formally trained in Physics and Applied Mathematics.
+I am a physicist, formally trained in physics and applied mathematics.
+
+I hold a PhD in Mathematics from the University of York and currently work on single-molecule genomics as a postdoctoral [researcher](/research/) at the University of Exeter.
 
 I have a particular interest in problems whose solutions can make a _meaningful_ contribution.
+While problems may originate from a particular discipline, they do cross many others.
+My main professional interests currently lie in the intersection of data science, machine learning, physics and genomics.
 
-While problems may originate from a particular discipline, they do cross multiple disciplines.
-Thus, currently, my main professional interests are combinations of Data Science, Machine Learning, Physics and Applied Mathematics.
+Teaching is a source of clarity for my thinking and also brings me immense joy.
 
-Teaching is a source of clarity to my thinking and also brings me immense joy.
+For more details about my background and work experience, you can see [more about me](/about/moreabout/).
 
-For more details about my background and working experience, you can see [more about me](/about/moreabout).
-
-You are welcome to [contact me](mailto:contact@alexandrehefren.com).
+You are welcome to [contact me](/contact/).
 
 ## About LWL {#about-lwl}
 

@@ -1,13 +1,14 @@
 {{ define "main" }}
+{{ $posts := where .Pages "Section" "posts" }}
 <div class="taxonomy-page">
   <div class="taxonomy-header">
     <span class="taxonomy-label">Tag</span>
     <h1>{{ .Title }}</h1>
-    <p class="taxonomy-count">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</p>
+    <p class="taxonomy-count">{{ len $posts }} {{ if eq (len $posts) 1 }}post{{ else }}posts{{ end }}</p>
   </div>
 
   <div class="taxonomy-posts">
-    {{- range .Pages -}}
+    {{- range $posts -}}
     {{ partial "post-card.html" . }}
     {{- end -}}
   </div>

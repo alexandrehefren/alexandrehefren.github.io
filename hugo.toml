@@ -37,11 +37,17 @@ enableGitInfo = false
 
 [params]
   author = "Alexandre Hefren"
-  description = "Personal Webpage - Learn While Live"
+  description = "Alexandre Hefren — Learn While Live. Physicist and genomic data scientist."
+  # Top navigation behaviour — pick one:
+  #   "static"        nav scrolls away with the page (not pinned); no animation
+  #   "sticky"        always pinned at the top; no animation
+  #   "top-only"      visible at the top, hides on scroll-down, returns at the top
+  #   "hide-on-scroll" hides on scroll-down, reveals on scroll-up
+  navBehavior = "static"
   avatar = "/images/photos/AHVJ2874-Edit.jpg"
   profileImage = "/assets/images/DSC_1435-2.jpg"
   defaultTeaser = "/images/photos/AHVJ5357.jpg"
-  ogImage = "/assets/images/ogimage1.png"
+  ogImage = "/assets/images/og-monogram.png"
   googleVerification = "cvNF788qNhZj2ORsKDwbdLHN1nt-w7a0YvtdrPGMQGs"
   googleAnalyticsID = "G-W887YTKJWJ"
   wordsPerMinute = 200
@@ -61,6 +67,14 @@ enableGitInfo = false
 
   # ── Disqus (alternative — uncomment and fill shortname to use) ──
   # disqusShortname = "your-disqus-shortname"
+
+  # ── Contact form (Web3Forms — free, works on static hosts) ──
+  # Get a free access key at https://web3forms.com (enter your email,
+  # they email you a key — no account needed). Paste it below to make
+  # the /contact/ form deliver messages to that email. Left blank, the
+  # form shows a friendly "not configured yet" note instead of sending.
+  [params.contact]
+    web3formsKey = "70c9e50f-38c1-44f3-ad7b-4cc6dc6bb0e8"   # 
 
   [params.social]
     linkedin = "https://uk.linkedin.com/in/alexandrehefren"

@@ -49,6 +49,7 @@
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
   --sp-4: 1rem;
+  --sp-5: 1.25rem;
   --sp-6: 1.5rem;
   --sp-8: 2rem;
   --sp-12: 3rem;
@@ -346,6 +347,19 @@ figcaption {
   height: var(--nav-h);
   background: var(--bg);
   border-bottom: 1px solid var(--border);
+  /* Scroll-aware nav: slides up out of view on scroll-down, back on scroll-up.
+     JS in baseof.html toggles .nav-hidden. Remove this transition + the rule
+     below + the JS block to revert to a plain always-visible sticky nav. */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Nav behaviour is chosen by `navBehavior` in hugo.toml → body[data-nav="…"].
+   "static" = scroll away (not pinned); the others stay sticky. JS (baseof.html)
+   drives the hide/reveal for "top-only" and "hide-on-scroll". */
+body[data-nav="static"] .site-nav { position: static; }
+.site-nav.nav-hidden { transform: translateY(-100%); }
+.site-nav.nav-floating { box-shadow: 0 2px 10px rgba(0,0,0,0.07); }   /* subtle lift once scrolled */
+@media (prefers-reduced-motion: reduce) {
+  .site-nav { transition: none; }
 }
 
 /* Nav inherits --bg and --border from the active theme automatically */
@@ -530,7 +544,9 @@ figcaption {
 /* CURRENT HERO — equal columns, centred text, inspired photographer */
 .hero {
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  /* Home divider commented out (line-free home). To restore, soft line is primary:
+       border-bottom: 1px solid var(--border-light);
+     (original stronger line: border-bottom: 1px solid var(--border);) */
   padding: var(--sp-16) var(--sp-6);
 }
 .hero-inner {
@@ -604,7 +620,9 @@ figcaption {
   margin: 0 auto;
 }
 .home-section + .home-section {
-  border-top: 1px solid var(--border);
+  /* Home divider commented out (line-free home). To restore, soft line is primary:
+       border-top: 1px solid var(--border-light);
+     (original stronger line: border-top: 1px solid var(--border);) */
 }
 .home-section-hd {
   display: flex;
@@ -612,7 +630,7 @@ figcaption {
   align-items: baseline;
   margin-bottom: var(--sp-8);
 }
-.home-section-hd h2 { margin: 0; font-size: 1.5rem; }
+.home-section-hd h2 { margin: 0; font-size: clamp(1.5rem, 4vw, 1.85rem); }  /* fluid: ~1.5rem on phones, up to 1.85rem on desktop (was fixed 1.5rem) */
 .home-section-hd a {
   font-size: 0.875rem;
   color: var(--text-3);
@@ -677,7 +695,7 @@ figcaption {
 /* Featured project */
 .home-projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);  /* match Recent Posts; home shows first 3 */
   gap: var(--sp-6);
 }
 .home-project-card {
@@ -694,8 +712,12 @@ figcaption {
 }
 .home-project-card img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
+  /* Figures, not photos: never crop them to fit the grid. `contain` letterboxes
+     into a fixed 4:3 box so every card aligns, and the bars use --surface so
+     they stay invisible in both themes. Previous: height: 180px; object-fit: cover. */
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 .home-project-card-body {
@@ -712,7 +734,10 @@ figcaption {
   line-height: 1.5;
 }
 .home-project-card-body .tags { margin-bottom: var(--sp-3); }
-@media (max-width: 640px) {
+@media (max-width: 900px) {
+  .home-projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
   .home-projects-grid { grid-template-columns: 1fr; }
 }
 
@@ -787,7 +812,7 @@ figcaption {
 .posts-page-header {
   margin-bottom: var(--sp-8);
   padding-bottom: var(--sp-6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);   /* softened for white theme (was --border) */
 }
 .posts-page-header h1 { margin: 0 0 var(--sp-2) 0; }
 .posts-page-header p { color: var(--text-2); margin: 0; }
@@ -801,11 +826,9 @@ figcaption {
 
 /* Tags cloud */
 .tags-filter {
-  margin-bottom: var(--sp-6);
-  padding: var(--sp-4) var(--sp-6);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  margin-top: var(--sp-16);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--border-light);
 }
 .tags-filter-label {
   font-size: 0.72rem;
@@ -974,7 +997,7 @@ figcaption {
   font-size: 1.3rem;
   margin-top: var(--sp-12);
   padding-bottom: var(--sp-2);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);   /* softened for white theme (was --border) */
   color: var(--text);
 }
 .about-body h3 { font-size: 1.05rem; color: var(--text); margin-top: var(--sp-6); }
@@ -1039,18 +1062,22 @@ mark.lwl-highlight {
 .projects-page-header {
   margin-bottom: var(--sp-12);
   padding-bottom: var(--sp-6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);   /* softened for white theme (was --border) */
 }
 .projects-page-header h1 { margin: 0 0 var(--sp-2) 0; }
 .projects-page-header p { color: var(--text-2); margin: 0; max-width: 580px; }
 
 .project-row {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 4fr 8fr;
   gap: var(--sp-8);
+  /* Divider options (pick one):
+     ORIGINAL:   margin/padding --sp-12 + border-bottom 1px var(--border)        (stronger line)
+     REFINED:    margin/padding --sp-12 + border-bottom 1px var(--border-light)  (faint line — ACTIVE)
+     NO-LINE:    margin-bottom --sp-24, padding-bottom 0, no border              (open whitespace, no line) */
   margin-bottom: var(--sp-12);
   padding-bottom: var(--sp-12);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
   align-items: start;
 }
 .project-row:last-child {
@@ -1066,8 +1093,11 @@ mark.lwl-highlight {
 }
 .project-row-img img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  /* Uniform row rhythm without cropping — see .home-project-card img.
+     Previous: height: auto (native ratios, 0.98–1.50, gave uneven rows). */
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: var(--surface);
   display: block;
 }
 .project-row-content h2 {
@@ -1076,7 +1106,7 @@ mark.lwl-highlight {
 }
 .project-row-content p {
   color: var(--text-2);
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.7;
 }
 .project-tags {
@@ -1100,10 +1130,139 @@ mark.lwl-highlight {
 }
 .project-btn:hover { background: var(--accent-2); color: #fff; }
 
+/* Row of card actions — a project may have a page link, a code link, both, or neither */
+.project-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+.project-btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.project-btn-secondary:hover { background: var(--accent-light); color: var(--accent); }
+
+/* Shown instead of the page button when a project exists but isn't published yet */
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.55rem 1.25rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-3);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 @media (max-width: 680px) {
   .project-row { grid-template-columns: 1fr; }
-  .project-row-img img { height: 200px; }
 }
+
+/* ─────────────────────────────────────────────────────
+   12b. CONTACT
+───────────────────────────────────────────────────── */
+
+.contact-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--sp-12) var(--sp-6);
+}
+.contact-header { margin-bottom: var(--sp-8); }
+.contact-header h1 { margin: 0 0 var(--sp-2) 0; }
+.contact-subtitle {
+  color: var(--text-2);
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.contact-form { display: flex; flex-direction: column; gap: var(--sp-5); }
+.contact-field { display: flex; flex-direction: column; gap: var(--sp-2); }
+.contact-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+}
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.contact-field input:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.contact-field textarea { resize: vertical; min-height: 140px; }
+
+/* honeypot — hidden from humans */
+.contact-hp {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact-btn {
+  align-self: flex-start;
+  margin-top: var(--sp-1);
+  padding: 0.7rem 1.6rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.contact-btn:hover { background: var(--accent-2); }
+.contact-btn:disabled { opacity: 0.6; cursor: default; }
+
+.contact-status { margin: 0; font-size: 0.9rem; min-height: 1.2em; }
+.contact-status.is-ok  { color: var(--accent); }
+.contact-status.is-err { color: #c0392b; }
+
+.contact-notice {
+  color: var(--text-2);
+  padding: var(--sp-4);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.contact-alt {
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.contact-alt > span { color: var(--text-3); font-size: 0.9rem; }
+.contact-social { display: flex; gap: var(--sp-4); }
+.contact-social a {
+  color: var(--text-2);
+  font-size: 1.25rem;
+  transition: color var(--transition);
+}
+.contact-social a:hover { color: var(--accent); }
 
 /* ─────────────────────────────────────────────────────
    13. PHOTOGRAPHY
@@ -1112,7 +1271,7 @@ mark.lwl-highlight {
 /* Section hero banner */
 .photo-hero {
   position: relative;
-  height: 380px;
+  height: 460px;
   overflow: hidden;
   background: #111;
 }
@@ -1120,7 +1279,7 @@ mark.lwl-highlight {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.75;
+  object-position: center;   /* centred crop, like the Jekyll overlay hero */
   display: block;
 }
 .photo-hero-overlay {
@@ -1145,7 +1304,8 @@ mark.lwl-highlight {
   text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 @media (max-width: 640px) {
-  .photo-hero { height: 240px; }
+  .photo-hero { height: 300px; }
+  .photo-hero-overlay { padding: var(--sp-5); }   /* 1.25rem — more breathing room on phones */
 }
 
 /* Photography hub page */
@@ -1265,19 +1425,39 @@ mark.lwl-highlight {
 
 /* ── Gallery grid — CSS columns masonry (no JS) ── */
 .photo-gallery-page {
-  padding: var(--sp-6) var(--sp-12) var(--sp-16);
-  /* max-width: var(--max-w); — previous: capped gallery at 1140px */
+  /* Fluid full-bleed with ~4vw side margins — scales with the window instead of a
+     fixed cap. Raise/lower the 4vw to make it narrower/wider. */
+  padding: var(--sp-6) clamp(var(--sp-8), 4vw, var(--sp-24)) var(--sp-16);
   margin: 0 auto;
 }
 
+/* Gallery — ROW-MAJOR MASONRY.
+   Reads left-to-right (image 1,2,3 across the top, then 4,5,6 …) so the picture
+   order matches the front-matter list, like the old site. A small script
+   (see photography/single.html) adds `.is-masonry` and sets each item's row span
+   to its image height, which gives tight masonry packing without cropping.
+   Before the script runs (or if JS is off) it degrades to a plain top-aligned grid.
+   TO REVERT to the pure-CSS column masonry: restore the commented `columns` rules,
+   delete `.is-masonry`, and remove the data-masonry attr + script in single.html. */
 .photo-gallery {
-  columns: 3 240px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 8px;
+  row-gap: 8px;
+  align-items: start;     /* items size to their image; no stretching */
 }
+.photo-gallery.is-masonry {
+  grid-auto-rows: 1px;    /* fine unit; JS spans each item to image height + gap */
+  row-gap: 0;             /* vertical gap is baked into the JS row-span instead */
+}
+/* Previous pure-CSS column masonry (column-major order — items flowed top-to-bottom
+   down each column, which pushed early photos low; replaced for row-major order):
+.photo-gallery { columns: 3 240px; column-gap: 8px; } */
 
 .gallery-item {
-  break-inside: avoid;
-  margin-bottom: 8px;
+  /* margin must stay 0: .gallery-item is a <figure>, which inherits the global
+     `figure { margin: 2rem 0 }`; leaving it would break the grid spacing. */
+  margin: 0;
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -1321,7 +1501,7 @@ mark.lwl-highlight {
   text-align: center;
   margin-top: var(--sp-8);
   padding-top: var(--sp-6);
-  border-top: 1px solid var(--border);
+  /* border-top: 1px solid var(--border); */   /* divider line above "See more" — hidden; uncomment to restore */
   font-size: 0.9rem;
   color: var(--text-3);
 }
@@ -1415,7 +1595,7 @@ mark.lwl-highlight {
   margin-top: var(--sp-8);
   margin-bottom: var(--sp-4);
   padding-bottom: var(--sp-2);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);   /* softened for white theme (was --border) */
 }
 .research-page li {
   margin-bottom: var(--sp-4);
@@ -1577,7 +1757,7 @@ mark.lwl-highlight {
 .media-page-header {
   margin-bottom: var(--sp-12);
   padding-bottom: var(--sp-6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);   /* softened for white theme (was --border) */
 }
 .media-page-header h1 { margin: 0 0 var(--sp-2) 0; }
 .media-page-tagline {
@@ -1623,7 +1803,8 @@ mark.lwl-highlight {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3);
-  margin-bottom: var(--sp-12);
+  margin-top: var(--sp-6);   /* sits inside the header, above the divider line */
+  margin-bottom: 0;          /* header padding-bottom provides the gap before the line */
 }
 .media-nav-pill {
   display: inline-flex;
@@ -1648,7 +1829,7 @@ mark.lwl-highlight {
 /* Section divider */
 .media-section-divider {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-light);   /* softened for white theme (was --border) */
   margin: 0 0 var(--sp-16) 0;
 }
 
@@ -1864,8 +2045,7 @@ mark.lwl-highlight {
   .posts-page { padding: var(--sp-8) var(--sp-4); }
 
   /* -- Photo gallery: 2 columns on phones -- */
-  .photo-gallery { columns: 2; column-gap: 6px; }
-  .gallery-item { margin-bottom: 6px; }
+  .photo-gallery { grid-template-columns: repeat(2, 1fr); }
 
   /* -- Grids: force single column on narrow screens -- */
   .posts-grid { grid-template-columns: 1fr; }
@@ -1920,7 +2100,42 @@ mark.lwl-highlight {
 
 /* Extra small screens (≤ 380px, e.g. iPhone SE) */
 @media (max-width: 380px) {
-  .photo-gallery { columns: 1; }
+  .photo-gallery { grid-template-columns: 1fr; }
   .hero-photo img { width: 140px; height: 186px; }
   .photography-hub-header h1 { font-size: 1.6rem; letter-spacing: 0.03em; }
+}
+
+/* ── 404 page ── */
+.notfound {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--sp-24) var(--sp-6);
+  text-align: center;
+}
+.notfound-code {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 14vw, 7rem);
+  line-height: 1;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0;
+}
+.notfound-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: var(--sp-4) 0 0;
+}
+.notfound-text {
+  color: var(--text-2);
+  margin: var(--sp-4) auto var(--sp-8);
+  max-width: 42ch;
+}
+.notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: center;
+}
+@media (max-width: 480px) {
+  .notfound { padding: var(--sp-16) var(--sp-4); }
 }

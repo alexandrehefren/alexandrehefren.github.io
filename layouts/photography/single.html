@@ -3,7 +3,8 @@
 {{- /* Hero banner with header image */ -}}
 {{- with .Params.headerImage -}}
 <div class="photo-hero">
-  <img src="{{ . }}" alt="{{ $.Title }}" loading="eager">
+  {{- /* headerFocus (optional, front matter): crop focal point, e.g. "top", "center 30%". Defaults to centre. */ -}}
+  <img src="{{ . }}" alt="{{ $.Title }}" loading="eager"{{ with $.Params.headerFocus }} style="object-position: {{ . }}"{{ end }}>
   <div class="photo-hero-overlay">
     <h1>{{ $.Title }}</h1>
     {{- with $.Params.excerpt -}}<p>{{ . }}</p>{{- end -}}
@@ -13,7 +14,15 @@
 
 <div class="photo-gallery-page">
   {{- with .Params.gallery -}}
-  <div class="photo-gallery">
+  {{/* TODO (post-go-live) — thumbnails. Each tile below loads the FULL image
+       (~500KB) to display ~400px wide: street gallery = 28MB per page load.
+       Fix: move static/images/photos/ -> assets/images/photos/ (Hugo can only
+       resize images under assets/), rewrite the paths in content/photography/
+       {landscape,street}.md, then use a Hugo-generated .Resize "600x" copy for
+       <img src> and keep the original in the <a href> lightbox. ~10x lighter.
+       Deferred deliberately: it touches every photo path, so do it on a live
+       site that already works, not during the cut-over. */}}
+  <div class="photo-gallery" data-masonry>
     {{- range . -}}
     <figure class="gallery-item">
       <a href="{{ .image_path }}">
@@ -23,6 +32,44 @@
     </figure>
     {{- end -}}
   </div>
+
+  {{- /* Row-major masonry: gives each gallery item a grid row-span equal to its
+         image height, so photos read left-to-right (list order) with tight packing
+         and no cropping. Recalculates as images load (incl. lazy) and on resize.
+         To remove: delete this script, the `data-masonry` attr above, and restore
+         the pure-CSS `columns` rules in main.css (see the .photo-gallery comment). */ -}}
+  <script>
+  (function () {
+    var grid = document.querySelector('.photo-gallery[data-masonry]');
+    if (!grid || !('gridTemplateColumns' in grid.style)) return;
+    var GAP = 8;   // vertical gap in px; matches column-gap
+    var items = Array.prototype.slice.call(grid.querySelectorAll('.gallery-item'));
+    grid.classList.add('is-masonry');
+
+    function sizeItem(item) {
+      var h = item.getBoundingClientRect().height;
+      if (h) item.style.gridRowEnd = 'span ' + (Math.ceil(h) + GAP);
+    }
+    function sizeAll() { items.forEach(sizeItem); }
+
+    var ticking = false;
+    function schedule() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sizeAll(); });
+    }
+
+    items.forEach(function (item) {
+      var img = item.querySelector('img');
+      if (!img) return;
+      if (img.complete) sizeItem(item);
+      img.addEventListener('load', function () { sizeItem(item); });
+    });
+    schedule();
+    window.addEventListener('load', sizeAll);
+    window.addEventListener('resize', schedule);
+  })();
+  </script>
   {{- end -}}
 
   <p class="photo-instagram-link">

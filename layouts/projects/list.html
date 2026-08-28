@@ -21,11 +21,40 @@
         {{- range . -}}<span class="tag">{{ . }}</span>{{- end -}}
       </div>
       {{- end -}}
-      {{- with .url -}}
-      <a href="{{ . }}" class="project-btn" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-code"></i> {{ $proj.btn_label | default "View" }}
-      </a>
-      {{- end -}}
+      {{/* Card actions. Each is independent, so a project can have a page,
+           a repo, both, or neither:
+             page_url  — internal project page       → "Explore" (same tab)
+             code_url  — external repository          → "Code"   (new tab)
+             status    — muted label, shown only when there is no page_url yet
+           `url` + `btn_label` are the older single-link form, still honoured. */}}
+      <div class="project-actions">
+        {{- with .page_url -}}
+        <a href="{{ . }}" class="project-btn">
+          <i class="fas fa-arrow-right"></i> {{ $proj.btn_label | default "Explore" }}
+        </a>
+        {{- end -}}
+
+        {{/* Filled when it stands alone; outlined only when an Explore
+             button sits beside it, so the two don't compete. */}}
+        {{- with .code_url -}}
+        <a href="{{ . }}" class="project-btn{{ if $proj.page_url }} project-btn-secondary{{ end }}" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-code"></i> Code
+        </a>
+        {{- end -}}
+
+        {{/* legacy single-link form */}}
+        {{- if and .url (not .page_url) (not .code_url) -}}
+        <a href="{{ .url }}" class="project-btn" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-code"></i> {{ $proj.btn_label | default "View" }}
+        </a>
+        {{- end -}}
+
+        {{- if not .page_url -}}
+        {{- with .status -}}
+        <span class="project-status" title="Not published yet"><i class="fa-regular fa-clock" aria-hidden="true"></i>{{ . }}</span>
+        {{- end -}}
+        {{- end -}}
+      </div>
     </div>
   </div>
   {{- end -}}

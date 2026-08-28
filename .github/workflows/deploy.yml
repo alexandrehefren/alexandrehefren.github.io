@@ -27,17 +27,18 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "0.128.0"
+          hugo-version: "0.158.0"
           extended: true
 
+      # Paths are repo-root relative: this repo IS the Hugo site (hugo.toml sits
+      # at the root), so there is no hugo-site/ subdirectory to descend into.
       - name: Build Hugo site
         run: hugo --minify --baseURL "https://www.alexandrehefren.com/"
-        working-directory: hugo-site
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: hugo-site/public
+          path: public
 
   deploy:
     environment:

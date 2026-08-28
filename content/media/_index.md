@@ -1,7 +1,7 @@
 ---
 title: "Media"
 description: "Videos and earlier writing by Alexandre Hefren — physics lectures and essays."
-excerpt: "Videos, lectures, and earlier writing"
+excerpt: "Videos, lectures and earlier writing"
 
 youtube_channel_url: "https://www.youtube.com/@learnwhilelive"
 
@@ -12,17 +12,17 @@ videos:
     year: 2021
   - id: "qa4dBa5U-Nw"
     title: "Short Summary of the Wave Equation"
-    description: "A concise introduction to the wave equation — where it comes from, what it describes, and how its solutions behave."
+    description: "A concise introduction to the wave equation — where it comes from, what it describes and how its solutions behave."
     year: 2021
 
 writing_groups:
   - title: "Grammar & Linguistics"
     lang: "PT"
-    description: "Seven short essays on Portuguese grammar and linguistic theory, written in 2010–2012. Originally published on an early blog — texts are in Portuguese."
+    description: "Early writing on grammar and linguistic theory, published on a blog between 2010 and 2012 — a set of short essays, plus videos on verbal diathesis. In Portuguese."
     entries:
       - title: "Advérbios"
         title_en: "Adverbs"
-        description: "One of ten word classes in Portuguese — but what exactly qualifies as an adverb, and where does the boundary with other modifiers lie?"
+        description: "Adverbs are one of ten word classes in Portuguese, but what exactly qualifies as an adverb, and where does the boundary with other modifiers lie?"
         url: "https://alexandrehefren.wordpress.com/2010/01/03/adverbios/"
         year: 2010
       - title: "Alomorfia e Superfluidade"
@@ -32,7 +32,7 @@ writing_groups:
         year: 2010
       - title: "Estrutura Profunda e Estrutura de Superfície – Parte 1"
         title_en: "Deep Structure and Surface Structure, Part 1"
-        description: "Two sentences can look identical on the surface but mean entirely different things. This explores why — and what that reveals about the internal architecture of language."
+        description: "Two sentences can look identical on the surface but mean entirely different things. This essay explores why and what that reveals about the internal architecture of language."
         url: "https://alexandrehefren.wordpress.com/2010/01/21/estrutura-profunda-e-estrutura-de-superficie-parte-1/"
         year: 2010
       - title: "Estrutura Profunda e Estrutura de Superfície – Parte 2"
@@ -52,7 +52,7 @@ writing_groups:
         year: 2010
       - title: "Diátese Verbal ou Voz Verbal"
         title_en: "Verbal Diathesis and Voice"
-        description: "Active, passive, reflexive — the different voices a verb can take, and what shifts in meaning when the perspective changes."
+        description: "Active, passive, reciprocal, reflexive and middle — the different voices a verb can take, and the crucial distinction between the passive voice as a grammatical form and the passivity of a subject that undergoes the action."
         url: "https://alexandrehefren.wordpress.com/2012/08/14/diatese-verbal-ou-voz-verbal/"
         year: 2012
 

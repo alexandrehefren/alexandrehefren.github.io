@@ -2,7 +2,13 @@
   <div class="footer-inner">
     <div class="footer-left">
       <span class="footer-copyright">&copy; {{ now.Year }} {{ .Site.Params.author }}</span>
+      {{/* Links the CV PDF once static/cv.pdf exists; until then it points at the
+           CV page so the link never 404s. Drop the file in and it switches itself. */}}
+      {{- if fileExists "static/cv.pdf" -}}
       <a href="/cv.pdf" class="footer-cv-link" target="_blank" rel="noopener">CV</a>
+      {{- else -}}
+      <a href="/about/moreabout/" class="footer-cv-link">CV</a>
+      {{- end -}}
     </div>
 
     <nav class="footer-social" aria-label="Social links">

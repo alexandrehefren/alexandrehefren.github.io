@@ -1,8 +1,12 @@
 main:
-  - title: "Home"
-    url: "/"
-  - title: "About"
-    url: "/about/"
+  # Home dropped from the nav — the "Learn While Live" logo (top-left) links home.
+  # Nav behaviour is set by navBehavior in hugo.toml (currently "static": the nav
+  # scrolls away with the page). "sticky" keeps it pinned and always visible.
+  # Uncomment to restore a Home link.
+  # - title: "Home"
+  #   url: "/"
+  - title: "Posts"
+    url: "/posts/"
   - title: "Research"
     url: "/research/"
   - title: "Projects"
@@ -11,5 +15,7 @@ main:
     url: "/photography/"
   - title: "Media"
     url: "/media/"
-  - title: "Posts"
-    url: "/posts/"
+  - title: "About"
+    url: "/about/"
+  - title: "Contact"
+    url: "/contact/"

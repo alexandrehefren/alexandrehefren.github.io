@@ -2,3 +2,14 @@ public/
 resources/
 .hugo_build.lock
 .claude/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Private working files — not published, not tracked
+_private/
+
+# Unfinished second contact page draft
+content/contact-2-draft/
+layouts/contact-2-draft/

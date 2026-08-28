@@ -3,7 +3,7 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body>
+<body data-nav="{{ .Site.Params.navBehavior | default "sticky" }}">
   <a href="#main-content" class="skip-link">Skip to content</a>
 
   {{ partial "nav.html" . }}
@@ -39,8 +39,47 @@
           root.setAttribute('data-theme', isDark ? 'dark' : 'light');
         }
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        if (window.setThemeColor) window.setThemeColor();  // keep the mobile address bar in sync
       });
     }
+  })();
+  </script>
+
+  {{- /* Scroll-aware nav: hide on scroll-down, reveal on scroll-up; always shown
+         near the top. Toggles .nav-hidden on .site-nav (styled in main.css).
+         To revert, remove this script and the .nav-hidden CSS. */ -}}
+  <script>
+  (function () {
+    var nav = document.querySelector('.site-nav');
+    if (!nav) return;
+    var mode = document.body.getAttribute('data-nav') || 'sticky';
+    // "static" and "sticky" need no JS — CSS handles them (always shown / scrolls away).
+    if (mode !== 'top-only' && mode !== 'hide-on-scroll') return;
+
+    var last = window.pageYOffset || 0, accDown = 0, accUp = 0, ticking = false;
+    var HIDE_AFTER = 90;   // hide-on-scroll: px of downward scroll before hiding
+    var SHOW_AFTER = 50;   // hide-on-scroll: px of upward scroll before revealing
+
+    function update() {
+      ticking = false;
+      var y = window.pageYOffset || 0;
+      nav.classList.toggle('nav-floating', y > nav.offsetHeight);
+
+      if (mode === 'top-only') {
+        // visible only near the top; hidden once scrolled, returns at the top
+        nav.classList.toggle('nav-hidden', y > nav.offsetHeight);
+        return;
+      }
+      // hide-on-scroll: hide after a deliberate down-scroll, reveal after a deliberate up-scroll
+      if (y <= nav.offsetHeight) { nav.classList.remove('nav-hidden'); last = y; accDown = accUp = 0; return; }
+      var d = y - last;
+      if (d > 0) { accDown += d; accUp = 0; if (accDown > HIDE_AFTER) nav.classList.add('nav-hidden'); }
+      else if (d < 0) { accUp += -d; accDown = 0; if (accUp > SHOW_AFTER) nav.classList.remove('nav-hidden'); }
+      last = y;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
   })();
   </script>
 </body>

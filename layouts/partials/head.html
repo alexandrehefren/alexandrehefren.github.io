@@ -6,7 +6,7 @@
 (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
 </script>
 
-{{- $title := cond .IsHome .Site.Title (printf "%s — %s" .Title .Site.Title) -}}
+{{- $title := cond .IsHome (printf "Alexandre Hefren — %s" .Site.Title) (printf "%s — %s" .Title .Site.Title) -}}
 <title>{{ $title }}</title>
 
 {{- $description := .Params.description | default .Params.excerpt | default .Site.Params.description -}}
@@ -43,6 +43,30 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"
   onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:false},{left:'\\[',right:'\\]',display:true}]});"></script>
 {{- end -}}
+
+<!-- Browser UI tint (mobile address bar / PWA splash). Driven by JS rather than a
+     media query so it follows the site's own theme toggle, falling back to the OS
+     only when the visitor has not chosen. setThemeColor() runs here, again on every
+     toggle (see baseof.html), and on OS changes while no manual choice is stored.
+     The static "theme_color" in site.webmanifest is the install-time fallback.
+     Colours must track --bg in main.css. -->
+<meta name="theme-color" content="#fafafa">
+<script>
+(function(){
+  var LIGHT = '#fafafa', DARK = '#141412';
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  window.setThemeColor = function(){
+    var t = document.documentElement.getAttribute('data-theme');
+    var isDark = t ? t === 'dark' : mq.matches;
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', isDark ? DARK : LIGHT);
+  };
+  window.setThemeColor();
+  mq.addEventListener('change', function(){
+    if (!localStorage.getItem('theme')) window.setThemeColor();
+  });
+})();
+</script>
 
 <!-- Favicons -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">

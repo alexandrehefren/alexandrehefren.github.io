@@ -1,0 +1,94 @@
+{{ define "main" }}
+<div class="contact-page">
+  <div class="contact-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.excerpt -}}<p class="contact-subtitle">{{ . }}</p>{{- end -}}
+  </div>
+
+  {{- $key := .Site.Params.contact.web3formsKey -}}
+  {{- if $key -}}
+  <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="{{ $key }}">
+    <input type="hidden" name="from_name" value="{{ .Site.Title }} contact form">
+    <!-- honeypot: bots fill this, humans don't -->
+    <input type="checkbox" name="botcheck" class="contact-hp" tabindex="-1" autocomplete="off">
+
+    <div class="contact-field">
+      <label for="cf-name">Name</label>
+      <input type="text" id="cf-name" name="name" required autocomplete="name">
+    </div>
+
+    <div class="contact-field">
+      <label for="cf-email">Email</label>
+      <input type="email" id="cf-email" name="email" required autocomplete="email">
+    </div>
+
+    <div class="contact-field">
+      <label for="cf-subject">Subject</label>
+      <input type="text" id="cf-subject" name="subject" required>
+    </div>
+
+    <div class="contact-field">
+      <label for="cf-message">Message</label>
+      <textarea id="cf-message" name="message" rows="6" required></textarea>
+    </div>
+
+    <button type="submit" class="contact-btn">Send</button>
+    <p class="contact-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <script>
+  (function () {
+    var form = document.querySelector('.contact-form');
+    if (!form) return;
+    var status = form.querySelector('.contact-status');
+    var btn = form.querySelector('.contact-btn');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      status.textContent = 'Sending…';
+      status.className = 'contact-status';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok) {
+            form.reset();
+            status.textContent = 'Thanks — your message has been sent.';
+            status.className = 'contact-status is-ok';
+          } else {
+            status.textContent = (res.d && res.d.message) || 'Something went wrong. Please try again.';
+            status.className = 'contact-status is-err';
+          }
+        })
+        .catch(function () {
+          status.textContent = 'Network error. Please try again or email me directly.';
+          status.className = 'contact-status is-err';
+        })
+        .finally(function () { btn.disabled = false; });
+    });
+  })();
+  </script>
+  {{- else -}}
+  <p class="contact-notice">
+    The message form isn’t configured yet. In the meantime, you can reach me by
+    {{- with .Site.Params.social.email }} <a href="{{ . }}">email</a>{{- end -}}.
+  </p>
+  {{- end -}}
+
+  {{/* Social icons hidden — the site footer already shows them. Uncomment to revert.
+  {{- with .Site.Params.social -}}
+  <div class="contact-alt">
+    <span>Or find me elsewhere:</span>
+    <nav class="contact-social" aria-label="Social links">
+      {{- with .email }}<a href="{{ . }}" aria-label="Email"><i class="fas fa-envelope"></i></a>{{ end -}}
+      {{- with .linkedin }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>{{ end -}}
+      {{- with .github }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>{{ end -}}
+      {{- with .instagram }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>{{ end -}}
+      {{- with .twitter }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>{{ end -}}
+      {{- with .orcid }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="ORCID"><i class="fab fa-orcid"></i></a>{{ end -}}
+    </nav>
+  </div>
+  {{- end -}}
+  */}}
+</div>
+{{ end }}

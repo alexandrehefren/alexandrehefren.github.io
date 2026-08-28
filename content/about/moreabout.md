@@ -1,13 +1,14 @@
 ---
 title: "More About"
-description: "Academic background and CV of Alexandre Hefren."
+description: "Academic background and professional experience of Alexandre Hefren."
 ---
 
-This page gathers additional information about my academic background, professional experience, and qualifications. For my research and academic output, see the [Research](/research/) page.
+This page gathers additional information about my academic background, professional experience and qualifications. For my research and academic output, see the [Research](/research/) page.
 
 ## Education
 
 - PhD, Mathematics | University of York (2022)
+  - Thesis: [Quantum backflow in the presence of defects](https://etheses.whiterose.ac.uk/id/eprint/30009/)
 - MSc, Physics | Brazilian Center for Research in Physics (2016)
 - BSc, Physics | Federal University of Ceará (2014)
 
@@ -15,9 +16,9 @@ For my academic genealogy, see my PhD supervisor [Edward Corrigan](https://www.m
 
 ## Work Experience
 
-**Research Fellow** — Faculty of Health and Life Sciences, University of Exeter
+**Research Fellow** — Department of Clinical and Biomedical Sciences, University of Exeter (2024–present)
 
-**Postdoctoral Research Associate** — School of Physics, Engineering and Technology, University of York
+**Postdoctoral Research Associate** — School of Physics, Engineering and Technology, University of York (2022–2023)
 - Project: Self-Assembly of Silk Protein. PI: [Tom McLeish](https://en.wikipedia.org/wiki/Tom_McLeish)
 - Work on a cross-disciplinary project within the Physics of Life group
 - Areas: Polymer Physics, Biological Physics, Data Analysis, Applied Mathematics and Statistics
@@ -38,10 +39,11 @@ For my academic genealogy, see my PhD supervisor [Edward Corrigan](https://www.m
 **A Level Teacher** — Ari de Sá Cavalcante School (2014)
 - International Physics Olympiad (IPhO)
 
+<!-- Technical Skills — removed: the project tags already show tools in context.
 ## Technical Skills
 
 Python, Linux (bash), git, Matlab, Fortran
-
+-->
 
 ## Higher Education Membership
 
