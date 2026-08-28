@@ -25,7 +25,7 @@
 {{- end -}}
 {{- end -}}
 
-{{/* ── Disqus (alternative — uncomment params in hugo.toml to use instead) ──
+{{/* ── Disqus (active) ── */}}
 {{- with site.Params.disqusShortname -}}
 <section class="post-comments" id="comments">
   <h2>Comments</h2>
@@ -33,7 +33,10 @@
   <script>
     var disqus_config = function () {
       this.page.url = {{ $.Permalink }};
-      this.page.identifier = {{ $.RelPermalink }};
+      {{/* Posts migrated from the previous site keep their original thread key
+           so existing comments stay attached. Set `disqusIdentifier` in front
+           matter to the old page id; new posts fall back to their own path. */}}
+      this.page.identifier = {{ with $.Params.disqusIdentifier }}{{ . }}{{ else }}{{ $.RelPermalink }}{{ end }};
     };
     (function() {
       var d = document, s = d.createElement('script');
@@ -45,6 +48,5 @@
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
 {{- end -}}
-── end Disqus */}}
 
 {{- end -}}

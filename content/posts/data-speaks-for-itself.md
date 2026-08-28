@@ -13,6 +13,9 @@ tags:
   - science
 math: true
 draft: false
+disqusIdentifier: "/data-speaks-for-itself"
+aliases:
+  - "/data-speaks-for-itself/"
 ---
 
 Especially now, the phrase "data speaks for itself" is a well-known sentence found all over the internet and specifically on social media platforms such as LinkedIn or Medium publications. Because of the popularity of that sentence, it is also not difficult to come across articles attempting to negate that or, at least, to improve upon it. I think, however, that many of such attempts - the ones I have encountered thus far - are equally mistaken in at least one important aspect.

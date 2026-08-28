@@ -52,6 +52,11 @@ enableGitInfo = false
   googleAnalyticsID = "G-W887YTKJWJ"
   wordsPerMinute = 200
 
+  # ── Disqus comments (shortname from the previous site; threads preserved) ──
+  # Must stay above [params.giscus] — keys after a sub-table header would be
+  # nested inside it and the template would not find them.
+  disqusShortname = "learnwhilelive"
+
   # ── giscus comments (free, GitHub-based, no ads) ──
   # To enable: go to https://giscus.app, fill in your repo details,
   # and paste the values below. Requires a public GitHub repo with
@@ -64,9 +69,6 @@ enableGitInfo = false
     mapping    = "pathname"  # maps each post URL to a Discussion
     theme      = "preferred_color_scheme"
     lang       = "en"
-
-  # ── Disqus (alternative — uncomment and fill shortname to use) ──
-  # disqusShortname = "your-disqus-shortname"
 
   # ── Contact form (Web3Forms — free, works on static hosts) ──
   # Get a free access key at https://web3forms.com (enter your email,

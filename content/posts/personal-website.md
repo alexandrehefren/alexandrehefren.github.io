@@ -11,6 +11,9 @@ tags:
   - Jekyll
   - writing
 draft: false
+disqusIdentifier: "/personal-website"
+aliases:
+  - "/personal-website/"
 ---
 
 During my first year as an undergraduate student, the most experienced professor of the Department of Physics was my lecturer in the "Introduction to Physics" module. He was an experimental physicist, but he had a passion for teaching theory to freshers.

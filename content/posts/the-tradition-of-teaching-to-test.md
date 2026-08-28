@@ -13,6 +13,9 @@ tags:
   - philosophy
   - science
 draft: false
+disqusIdentifier: "/the-tradition-of-teaching-to-test"
+aliases:
+  - "/the-tradition-of-teaching-to-test/"
 ---
 
 Traditions hold great importance in the history of human life, supporting our continuing existence and serving as a solid base for progress. Yet, they can also perpetuate harmful practices and hinder human progress if we are not aware of them and ready to carefully question each one, one by one.
