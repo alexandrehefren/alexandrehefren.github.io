@@ -55,17 +55,17 @@ enableGitInfo = false
   # ── Disqus comments (shortname from the previous site; threads preserved) ──
   # Must stay above [params.giscus] — keys after a sub-table header would be
   # nested inside it and the template would not find them.
-  disqusShortname = "learnwhilelive"
+  # disqusShortname = "learnwhilelive"   # dormant: free tier serves ads + trackers
 
   # ── giscus comments (free, GitHub-based, no ads) ──
   # To enable: go to https://giscus.app, fill in your repo details,
   # and paste the values below. Requires a public GitHub repo with
   # Discussions enabled and the giscus app installed.
   [params.giscus]
-    repo       = ""          # e.g. "Alexandre-Hefren/alexandrehefren.github.io"
-    repoID     = ""          # from giscus.app configurator
-    category   = ""          # e.g. "Announcements"
-    categoryID = ""          # from giscus.app configurator
+    repo       = "alexandrehefren/alexandrehefren.github.io"
+    repoID     = "R_kgDOUHkHOA"
+    category   = "Announcements"   # only maintainers can open threads here
+    categoryID = "DIC_kwDOUHkHOM4DEafq"
     mapping    = "pathname"  # maps each post URL to a Discussion
     theme      = "preferred_color_scheme"
     lang       = "en"

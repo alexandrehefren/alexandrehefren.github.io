@@ -15,11 +15,34 @@
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="top"
-    data-theme="{{ .theme | default "preferred_color_scheme" }}"
+    data-theme="{{ .themeLight | default "light" }}"
     data-lang="{{ .lang | default "en" }}"
     data-loading="lazy"
     crossorigin="anonymous"
     async>
+  </script>
+  {{/* Follow the site's own light/dark toggle rather than the OS setting:
+       read the current data-theme on load, then push changes into the
+       giscus iframe whenever the toggle flips it. */}}
+  <script>
+  (function () {
+    var LIGHT = {{ .themeLight | default "light" | jsonify }};
+    var DARK  = {{ .themeDark  | default "dark"  | jsonify }};
+    function current() {
+      var t = document.documentElement.getAttribute('data-theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return t === 'dark' ? DARK : LIGHT;
+    }
+    function push(theme) {
+      var f = document.querySelector('iframe.giscus-frame');
+      if (!f || !f.contentWindow) return;
+      f.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
+    }
+    var s = document.currentScript.previousElementSibling;
+    if (s) s.setAttribute('data-theme', current());
+    new MutationObserver(function () { push(current()); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
   </script>
 </section>
 {{- end -}}
