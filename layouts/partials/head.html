@@ -76,8 +76,14 @@
 })();
 </script>
 
-<!-- Favicons -->
+<!-- Favicons.
+     Google picks the search-result icon from these, and wants a square whose
+     size is a multiple of 48px. 16 and 32 are not; favicon.ico carries a 48x48
+     layer, and the 192 below is declared explicitly so there is a large,
+     unambiguous choice. Google re-crawls favicons on its own slow schedule, so
+     a change here can take weeks to appear in search. -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
