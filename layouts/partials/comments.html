@@ -1,7 +1,14 @@
 {{- if not .Params.disable_comments -}}
 
+{{/* One active provider, resolved here so the precedence lives in one place:
+     echothread.apiKey  →  giscus.repo  →  disqusShortname.
+     Blank out the one in front to fall through to the next. */}}
+{{- $echothread := and site.Params.echothread site.Params.echothread.apiKey -}}
+{{- $giscus     := and (not $echothread) site.Params.giscus site.Params.giscus.repo -}}
+{{- $disqus     := and (not $echothread) (not $giscus) site.Params.disqusShortname -}}
+
 {{/* ── EchoThread (active) — no ads, no third-party trackers, guest comments ── */}}
-{{- if and site.Params.echothread site.Params.echothread.apiKey -}}
+{{- if $echothread -}}
 {{- with site.Params.echothread -}}
 <section class="post-comments" id="comments">
   <h2>Comments</h2>
@@ -47,7 +54,7 @@
 {{- end -}}
 
 {{/* ── giscus (preferred — free, no ads, no third-party trackers) ── */}}
-{{- if and (not (and site.Params.echothread site.Params.echothread.apiKey)) (and site.Params.giscus site.Params.giscus.repo) -}}
+{{- if $giscus -}}
 {{- with site.Params.giscus -}}
 <section class="post-comments" id="comments">
   <h2>Comments</h2>
@@ -101,8 +108,8 @@
 {{- end -}}
 {{- end -}}
 
-{{/* ── Disqus (active) ── */}}
-{{- with site.Params.disqusShortname -}}
+{{/* ── Disqus (dormant fallback — free tier serves ads + trackers) ── */}}
+{{- with $disqus -}}
 <section class="post-comments" id="comments">
   <h2>Comments</h2>
   <div id="disqus_thread"></div>
