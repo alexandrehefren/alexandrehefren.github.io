@@ -1615,6 +1615,18 @@ mark.lwl-highlight {
   margin-bottom: var(--sp-6);
 }
 
+/* giscus stylesheet sets `color-scheme: light dark` on its iframe, which makes
+   it follow the OS rather than this site's theme toggle. With the OS in dark
+   mode and the site switched to light, the light theme renders washed out and
+   its controls look inert. Pin the iframe's scheme to the site's own theme.
+   Scoped to .giscus-frame only — no site colours are affected. */
+.giscus-frame { color-scheme: light; }
+:root[data-theme="light"] .giscus-frame { color-scheme: light; }
+:root[data-theme="dark"]  .giscus-frame { color-scheme: dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .giscus-frame { color-scheme: dark; }
+}
+
 /* ─────────────────────────────────────────────────────
    LIGHTBOX
 ───────────────────────────────────────────────────── */
