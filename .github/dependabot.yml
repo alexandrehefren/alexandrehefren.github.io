@@ -1,0 +1,12 @@
+# Keeps the SHA-pinned actions in deploy.yml from going stale.
+# Pinning to a commit SHA removes the supply-chain risk of a mutable tag, but it
+# also freezes the version — so Dependabot raises a PR (with the new SHA and the
+# version in the comment) whenever an action publishes a release.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"

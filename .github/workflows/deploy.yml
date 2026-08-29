@@ -15,17 +15,22 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Actions are pinned to full commit SHAs rather than tags. A tag is a mutable
+# pointer: whoever controls the source repo can repoint it at different code,
+# which then runs inside this build with access to the deployment. A SHA cannot
+# be repointed. The trailing comment records which version each SHA is, and
+# Dependabot (github-actions ecosystem) will raise PRs to move them forward.
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0  # full history needed for .Lastmod / enableGitInfo
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
         with:
           hugo-version: "0.158.0"
           extended: true
@@ -36,7 +41,7 @@ jobs:
         run: hugo --minify --baseURL "https://www.alexandrehefren.com/"
 
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: public
 
@@ -49,4 +54,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
