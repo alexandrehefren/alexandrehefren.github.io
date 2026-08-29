@@ -1,47 +1,54 @@
 {{- if not .Params.disable_comments -}}
 
-{{/* ── giscus (preferred — free, no ads, GitHub-based) ── */}}
+{{/* ── giscus (preferred — free, no ads, no third-party trackers) ── */}}
 {{- if and site.Params.giscus site.Params.giscus.repo -}}
 {{- with site.Params.giscus -}}
 <section class="post-comments" id="comments">
   <h2>Comments</h2>
-  <script src="https://giscus.app/client.js"
-    data-repo="{{ .repo }}"
-    data-repo-id="{{ .repoID }}"
-    data-category="{{ .category }}"
-    data-category-id="{{ .categoryID }}"
-    data-mapping="{{ .mapping | default "pathname" }}"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="{{ .themeLight | default "light" }}"
-    data-lang="{{ .lang | default "en" }}"
-    data-loading="lazy"
-    crossorigin="anonymous"
-    async>
-  </script>
-  {{/* Follow the site's own light/dark toggle rather than the OS setting:
-       read the current data-theme on load, then push changes into the
-       giscus iframe whenever the toggle flips it. */}}
+  <div id="giscus-container"></div>
+  {{/* The script tag is built here rather than written statically so the
+       theme is correct on the very first paint: giscus reads data-theme
+       when it runs, and this site's theme comes from a manual toggle
+       (data-theme on <html>) rather than the OS setting. */}}
   <script>
   (function () {
-    var LIGHT = {{ .themeLight | default "light" | jsonify }};
-    var DARK  = {{ .themeDark  | default "dark"  | jsonify }};
-    function current() {
+    var LIGHT = {{ .themeLight | default "light" }};
+    var DARK  = {{ .themeDark  | default "transparent_dark" }};
+
+    function siteTheme() {
       var t = document.documentElement.getAttribute('data-theme');
       if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       return t === 'dark' ? DARK : LIGHT;
     }
-    function push(theme) {
+
+    var s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    var attrs = {
+      'data-repo':              {{ .repo }},
+      'data-repo-id':           {{ .repoID }},
+      'data-category':          {{ .category }},
+      'data-category-id':       {{ .categoryID }},
+      'data-mapping':           {{ .mapping | default "pathname" }},
+      'data-strict':            '0',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata':     '0',
+      'data-input-position':    'top',
+      'data-theme':             siteTheme(),
+      'data-lang':              {{ .lang | default "en" }}
+    };
+    Object.keys(attrs).forEach(function (k) { s.setAttribute(k, attrs[k]); });
+    document.getElementById('giscus-container').appendChild(s);
+
+    {{/* Keep the comment box in step with the site's light/dark toggle. */}}
+    new MutationObserver(function () {
       var f = document.querySelector('iframe.giscus-frame');
-      if (!f || !f.contentWindow) return;
-      f.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
-    }
-    var s = document.currentScript.previousElementSibling;
-    if (s) s.setAttribute('data-theme', current());
-    new MutationObserver(function () { push(current()); })
-      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      if (f && f.contentWindow) {
+        f.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: siteTheme() } } }, 'https://giscus.app');
+      }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   })();
   </script>
 </section>
