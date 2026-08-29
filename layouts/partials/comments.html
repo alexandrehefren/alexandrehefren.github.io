@@ -11,7 +11,7 @@
   <div id="echothread"
        data-shortname="{{ .shortname }}"
        data-api-key="{{ .apiKey }}"
-       data-identifier="{{ with $.Params.disqusIdentifier }}{{ . }}{{ else }}{{ $.RelPermalink }}{{ end }}"
+       data-identifier="{{ with $.Params.commentID }}{{ . }}{{ else }}{{ with $.Params.disqusIdentifier }}{{ . }}{{ else }}post:{{ $.File.ContentBaseName }}{{ end }}{{ end }}"
        data-page-url="{{ $.Permalink }}"
        data-lang="{{ .lang | default "en" }}"
        data-theme-source="{{ .themeVar | default "--bg" }}"
