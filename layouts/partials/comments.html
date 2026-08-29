@@ -21,7 +21,7 @@
        data-identifier="{{ with $.Params.commentID }}{{ . }}{{ else }}{{ with $.Params.disqusIdentifier }}{{ . }}{{ else }}post:{{ $.File.ContentBaseName }}{{ end }}{{ end }}"
        data-page-url="{{ $.Permalink }}"
        data-lang="{{ .lang | default "en" }}"
-       data-theme-source="{{ .themeVar | default "--bg" }}"
+       data-theme-source="{{ .themeVar | default "--surface" }}"
        {{ with .authButtonStyle }}data-auth-button-style="{{ . }}"{{ end }}></div>
   {{/* The widget resolves data-theme-source ("--bg") against :root, so it
        tracks this site's own palette in both themes and derives light/dark
@@ -30,7 +30,12 @@
        toggle writes data-theme, which that filter does not include. Mirror
        the value onto data-color-scheme so the widget updates live instead
        of needing a page reload. data-theme and the accent are also set here
-       so the very first paint is correct. */}}
+       so the very first paint is correct.
+
+       The accent is deliberately NOT set here. The widget reads
+       data-accent-color once at init and never again, so it froze at
+       whichever theme the page happened to load in. It is mapped from
+       --accent in main.css instead, which re-resolves on every toggle. */}}
   <script>
   (function () {
     var el = document.getElementById('echothread');
@@ -41,7 +46,6 @@
     }
     var initial = mode();
     el.setAttribute('data-theme', initial);
-    el.setAttribute('data-accent-color', initial === 'dark' ? {{ .accentDark }} : {{ .accentLight }});
     root.setAttribute('data-color-scheme', initial);
     new MutationObserver(function () {
       root.setAttribute('data-color-scheme', mode());

@@ -1615,6 +1615,33 @@ mark.lwl-highlight {
   margin-bottom: var(--sp-6);
 }
 
+/* EchoThread widget — map its tokens onto this site's palette.
+
+   The widget writes --et-color-* as inline styles on .et-widget (via
+   style.setProperty with no priority), so these need !important to win.
+
+   Everything resolves to the site's own custom properties, which means both
+   themes and the light/dark toggle are handled by the palette itself, with no
+   JS. That matters for the accent in particular: the widget reads
+   data-accent-color once at init and never re-reads it, so setting the accent
+   from markup froze it at whichever theme the page loaded in — blue stayed
+   blue after switching to dark, green stayed green after switching to light.
+   As a CSS variable it re-resolves on every toggle, so light gets the blue
+   accent and dark gets the green one, matching the rest of the site.
+
+   --et-color-bg is the widget's own background: --surface, not --bg, so the
+   comment block reads as a card against the page instead of dissolving into
+   it (they were previously the identical hex). */
+#echothread .et-widget {
+  --et-color-bg:           var(--surface) !important;
+  --et-color-surface:      var(--surface-alt) !important;
+  --et-color-border:       var(--border) !important;
+  --et-color-text:         var(--text) !important;
+  --et-color-muted:        var(--text-3) !important;
+  --et-color-accent:       var(--accent) !important;
+  --et-color-accent-hover: var(--accent-2) !important;
+}
+
 /* giscus stylesheet sets `color-scheme: light dark` on its iframe, which makes
    it follow the OS rather than this site's theme toggle. With the OS in dark
    mode and the site switched to light, the light theme renders washed out and

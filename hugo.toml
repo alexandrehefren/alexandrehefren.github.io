@@ -61,11 +61,15 @@ enableGitInfo = false
   [params.echothread]
     apiKey      = "yu1SyjhsaKLPQaXDDenCfTRb21OMQtJZmGu9akcIgkg"
     shortname   = "LWL"
-    accentLight = "#2c3e5a"   # matches --accent in :root
-    accentDark  = "#5a9e80"   # matches --accent under [data-theme="dark"]
     lang        = "en"
     authButtonStyle = "icons"  # "icons" = icon-only social buttons; blank = full-width
-    themeVar    = "--bg"       # host CSS variable the widget reads for its background
+    # Host CSS variable the widget reads to decide light vs dark. --surface (not
+    # --bg) so that if main.css ever fails to load, the widget still paints on
+    # the card colour rather than exactly the page background.
+    # All widget colours are mapped from the site palette in main.css; there are
+    # no accentLight/accentDark keys here any more, because the widget reads
+    # data-accent-color once at init and would freeze it at the load-time theme.
+    themeVar    = "--surface"
 
   # ── Disqus comments (shortname from the previous site; threads preserved) ──
   # Must stay above [params.giscus] — keys after a sub-table header would be
