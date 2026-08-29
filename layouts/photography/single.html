@@ -2,9 +2,17 @@
 
 {{- /* Hero banner with header image */ -}}
 {{- with .Params.headerImage -}}
+{{- /* Gallery photos live under assets/ so Hugo can resize them; anything still
+       under static/ is served as-is. resources.Get returns nothing for the
+       latter, so $heroSrc falls back to the original path and no image can
+       silently disappear if a file is ever moved back. */ -}}
+{{- $heroSrc := . -}}
+{{- with resources.Get (strings.TrimPrefix "/" .) -}}
+  {{- $heroSrc = (.Resize "2000x webp q82").RelPermalink -}}
+{{- end -}}
 <div class="photo-hero">
   {{- /* headerFocus (optional, front matter): crop focal point, e.g. "top", "center 30%". Defaults to centre. */ -}}
-  <img src="{{ . }}" alt="{{ $.Title }}" loading="eager"{{ with $.Params.headerFocus }} style="object-position: {{ . }}"{{ end }}>
+  <img src="{{ $heroSrc }}" alt="{{ $.Title }}" loading="eager"{{ with $.Params.headerFocus }} style="object-position: {{ . }}"{{ end }}>
   <div class="photo-hero-overlay">
     <h1>{{ $.Title }}</h1>
     {{- with $.Params.excerpt -}}<p>{{ . }}</p>{{- end -}}
@@ -14,28 +22,43 @@
 
 <div class="photo-gallery-page">
   {{- with .Params.gallery -}}
-  {{/* TODO — thumbnails. Each tile below loads the FULL image to display it at
-       ~400px wide: measured 24MB for /photography/street/, 45MB across all
-       photography. Hugo can only resize images under assets/, so the fix is to
-       move them there and serve a .Resize "600x webp" copy in <img src> while
-       the <a href> lightbox keeps the original. ~10x lighter.
+  {{/* Each tile serves a resized WebP via srcset, so a phone downloads ~800px
+       and a retina desktop ~1600px, while the lightbox <a href> keeps the
+       untouched original. Widths are clamped to the source width so Hugo never
+       upscales (sources are 1365-2400px wide).
 
-       Move ONLY static/images/photos/{street,landscape}/ — NOT the whole
-       photos/ directory, which an earlier draft of this note suggested. Nine
-       other references (hugo.toml avatar and defaultTeaser, post teasers,
-       project and photography headerImages, explore-tiles.html) point at files
-       sitting at the top level of photos/, and moving those breaks all of them.
-       The galleries use only the two subfolders, so the sets do not overlap.
+       The photos live in assets/images/photos/{street,landscape}/ because Hugo
+       can only process images under assets/. The four loose files still in
+       static/images/photos/ are used by hugo.toml avatar/defaultTeaser, post
+       teasers and explore-tiles.html - leave them there.
 
-       Full plan, measurements and risks:
+       To revert: git revert this commit, or `git checkout pre-image-processing
+       -- layouts static assets`. Background and measurements:
        private/tasks/2026-08-29_photography-image-processing.md */}}
   <div class="photo-gallery" data-masonry>
     {{- range . -}}
+    {{- $orig := .image_path -}}{{- $alt := .alt -}}{{- $caption := .title -}}
+    {{- $res := resources.Get (strings.TrimPrefix "/" $orig) -}}
     <figure class="gallery-item">
-      <a href="{{ .image_path }}">
-        <img src="{{ .image_path }}" alt="{{ .alt }}" loading="lazy" title="{{ .title }}">
+      {{- if $res -}}
+      {{- $ow := $res.Width -}}
+      {{- $s := $res.Resize (printf "%dx webp q80" (cond (lt $ow 800) $ow 800)) -}}
+      {{- $m := $res.Resize (printf "%dx webp q80" (cond (lt $ow 1200) $ow 1200)) -}}
+      {{- $l := $res.Resize (printf "%dx webp q82" (cond (lt $ow 1600) $ow 1600)) -}}
+      <a href="{{ $res.RelPermalink }}">
+        <img src="{{ $m.RelPermalink }}"
+             srcset="{{ $s.RelPermalink }} {{ $s.Width }}w, {{ $m.RelPermalink }} {{ $m.Width }}w, {{ $l.RelPermalink }} {{ $l.Width }}w"
+             sizes="(max-width: 380px) 100vw, (max-width: 768px) 50vw, 33vw"
+             width="{{ $m.Width }}" height="{{ $m.Height }}"
+             alt="{{ $alt }}" loading="lazy" title="{{ $caption }}">
       </a>
-      <figcaption>{{ .title }}</figcaption>
+      {{- else -}}
+      {{- /* Not under assets/ - serve the original untouched rather than nothing. */ -}}
+      <a href="{{ $orig }}">
+        <img src="{{ $orig }}" alt="{{ $alt }}" loading="lazy" title="{{ $caption }}">
+      </a>
+      {{- end -}}
+      <figcaption>{{ $caption }}</figcaption>
     </figure>
     {{- end -}}
   </div>

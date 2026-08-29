@@ -14,7 +14,14 @@
     {{- range .Pages -}}
     <a href="{{ .RelPermalink }}" class="photo-hub-card">
       {{- with .Params.headerImage -}}
-      <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+      {{- /* Gallery photos live under assets/ so Hugo can resize them; anything
+             still under static/ falls through unchanged. Without this the card
+             would point at a path that no longer exists. */ -}}
+      {{- $cardSrc := . -}}
+      {{- with resources.Get (strings.TrimPrefix "/" .) -}}
+        {{- $cardSrc = (.Resize "900x webp q80").RelPermalink -}}
+      {{- end -}}
+      <img src="{{ $cardSrc }}" alt="{{ $.Title }}" loading="lazy">
       {{- end -}}
       <div class="photo-hub-card-caption">
         <h2>{{ .Title }}</h2>
