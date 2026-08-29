@@ -14,7 +14,8 @@
        data-identifier="{{ with $.Params.disqusIdentifier }}{{ . }}{{ else }}{{ $.RelPermalink }}{{ end }}"
        data-page-url="{{ $.Permalink }}"
        data-lang="{{ .lang | default "en" }}"
-       data-theme-source="--bg"></div>
+       data-theme-source="{{ .themeVar | default "--bg" }}"
+       {{ with .authButtonStyle }}data-auth-button-style="{{ . }}"{{ end }}></div>
   {{/* The widget resolves data-theme-source ("--bg") against :root, so it
        tracks this site's own palette in both themes and derives light/dark
        from the background's luminance. It re-syncs on a MutationObserver
