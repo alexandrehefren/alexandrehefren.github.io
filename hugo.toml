@@ -52,6 +52,19 @@ enableGitInfo = false
   googleAnalyticsID = "G-W887YTKJWJ"
   wordsPerMinute = 200
 
+  # ── EchoThread comments (active provider) ──
+  # The API key is a public embed key: it ships in the page HTML of every
+  # visitor, exactly like the Web3Forms key. It is not a secret.
+  # Provider precedence in layouts/partials/comments.html:
+  #   echothread.apiKey  →  giscus.repo  →  disqusShortname
+  # Blank one out to fall through to the next; all three stay wired up.
+  [params.echothread]
+    apiKey      = "yu1SyjhsaKLPQaXDDenCfTRb21OMQtJZmGu9akcIgkg"
+    shortname   = "LWL"
+    accentLight = "#2c3e5a"   # matches --accent in :root
+    accentDark  = "#5a9e80"   # matches --accent under [data-theme="dark"]
+    lang        = "en"
+
   # ── Disqus comments (shortname from the previous site; threads preserved) ──
   # Must stay above [params.giscus] — keys after a sub-table header would be
   # nested inside it and the template would not find them.
