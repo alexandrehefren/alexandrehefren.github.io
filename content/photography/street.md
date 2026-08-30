@@ -46,10 +46,10 @@ gallery:
     image_path: /images/photos/street/AHVJ5420.jpg
     alt: "Manchester, 2023"
     title: "Manchester, 2023"
-  - url: /images/photos/street/E28A1558.jpg
-    image_path: /images/photos/street/E28A1558.jpg
-    alt: "Leeds, 2023"
-    title: "Leeds, 2023"
+  # - url: /images/photos/street/E28A1558.jpg
+  #   image_path: /images/photos/street/E28A1558.jpg
+  #   alt: "Leeds, 2023"
+  #   title: "Leeds, 2023"
   - url: /images/photos/street/E28A1268.jpg
     image_path: /images/photos/street/E28A1268.jpg
     alt: "Manchester, 2023"
@@ -118,10 +118,10 @@ gallery:
     image_path: /images/photos/street/E28A1129.jpg
     alt: "Manchester, 2023"
     title: "Manchester, 2023"
-  - url: /images/photos/street/DSC_5751.jpg
-    image_path: /images/photos/street/DSC_5751.jpg
-    alt: "Manchester, 2023"
-    title: "Manchester, 2023"
+  # - url: /images/photos/street/DSC_5751.jpg
+  #   image_path: /images/photos/street/DSC_5751.jpg
+  #   alt: "Manchester, 2023"
+  #   title: "Manchester, 2023"
   - url: /images/photos/street/DSC_5844.jpg
     image_path: /images/photos/street/DSC_5844.jpg
     alt: "Manchester, 2023"
