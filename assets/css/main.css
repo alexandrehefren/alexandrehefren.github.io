@@ -1615,10 +1615,6 @@ mark.lwl-highlight {
   margin-bottom: var(--sp-6);
 }
 
-/* The comment widget is injected when the reader scrolls near it. Reserve a
-   little space so the footer does not jump upward as it appears. */
-#echothread:empty { min-height: 120px; }
-
 /* EchoThread widget — map its tokens onto this site's palette.
 
    The widget writes --et-color-* as inline styles on .et-widget (via

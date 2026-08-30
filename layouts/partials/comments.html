@@ -52,40 +52,7 @@
     }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   })();
   </script>
-  {{/* The widget loads when the reader scrolls near it, not on page load.
-       EchoThread is unversioned third-party JavaScript with full DOM access and
-       no SRI possible, so running it for every visitor is more exposure than
-       the feature warrants. Most readers never reach the end of a post, so this
-       keeps almost all of that benefit with no visible cost: by the time the
-       comments are on screen the widget has already loaded.
-
-       rootMargin starts the fetch 600px early so it feels instant. Falls back
-       to loading immediately where IntersectionObserver is unavailable, and a
-       deep link to a comment loads it straight away.
-
-       To revert to loading on every page view, delete this script and restore
-       <script src="https://cdn.echothread.io/widget.js" async></script>. */}}
-  <script>
-  (function () {
-    var target = document.getElementById('echothread');
-    if (!target) return;
-    var loaded = false;
-    function load() {
-      if (loaded) return;
-      loaded = true;
-      var s = document.createElement('script');
-      s.src = 'https://cdn.echothread.io/widget.js';
-      s.async = true;
-      document.head.appendChild(s);
-    }
-    if (location.hash && /^#(comment|et-)/.test(location.hash)) { load(); return; }
-    if (!('IntersectionObserver' in window)) { load(); return; }
-    var io = new IntersectionObserver(function (entries) {
-      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
-    }, { rootMargin: '600px 0px' });
-    io.observe(target);
-  })();
-  </script>
+  <script src="https://cdn.echothread.io/widget.js" async></script>
 </section>
 {{- end -}}
 {{- end -}}
