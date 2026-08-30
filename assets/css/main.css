@@ -1431,6 +1431,27 @@ mark.lwl-highlight {
   margin: 0 auto;
 }
 
+/* Link to the archive at the foot of a gallery. Deliberately understated —
+   it is an offer to go further, not a second front door. */
+.gallery-archive-link {
+  margin: var(--sp-12) 0 0;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+.gallery-archive-link a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 200ms, border-color 200ms;
+}
+.gallery-archive-link a:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
 /* Gallery — ROW-MAJOR MASONRY.
    Reads left-to-right (image 1,2,3 across the top, then 4,5,6 …) so the picture
    order matches the front-matter list, like the old site. A small script

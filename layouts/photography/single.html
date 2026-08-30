@@ -73,6 +73,18 @@
     {{- end -}}
   </div>
 
+  {{/* Quiet link to the archive, shown at the foot of a curated gallery and
+       never on the archive itself. Appears only once archive.md has
+       `draft: false` — until then $archive is nil and nothing renders. */}}
+  {{- if not $.Params.archive -}}
+  {{- $archive := site.GetPage "/photography/archive" -}}
+  {{- with $archive -}}
+  <p class="gallery-archive-link">
+    <a href="{{ .RelPermalink }}">More frames in the archive &rarr;</a>
+  </p>
+  {{- end -}}
+  {{- end -}}
+
   {{- /* Row-major masonry: gives each gallery item a grid row-span equal to its
          image height, so photos read left-to-right (list order) with tight packing
          and no cropping. Recalculates as images load (incl. lazy) and on resize.

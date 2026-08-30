@@ -11,7 +11,11 @@
   </div>
 
   <div class="photography-hub-grid">
-    {{- range .Pages -}}
+    {{/* Pages flagged `archive: true` are deliberately excluded. An archive
+         standing beside Street and Landscape as an equal card would read as a
+         third body of work of the same standing, which defeats its purpose —
+         it is reached from the foot of a gallery instead. */}}
+    {{- range where .Pages "Params.archive" "!=" true -}}
     <a href="{{ .RelPermalink }}" class="photo-hub-card">
       {{- with .Params.headerImage -}}
       {{- /* Gallery photos live under assets/ so Hugo can resize them; anything
