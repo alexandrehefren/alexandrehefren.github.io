@@ -2,6 +2,7 @@
 title: "Quantum Backflow"
 description: "Interactive visualisation of quantum backflow in the jump defect — the phenomenon where positive-momentum quantum states can carry a negative probability current."
 date: 2024-01-01
+math: true   # the body uses $$...$$ - without this KaTeX never loads
 draft: true
 ---
 

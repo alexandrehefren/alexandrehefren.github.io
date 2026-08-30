@@ -11,7 +11,6 @@ tags:
   - storytelling
   - philosophy
   - science
-math: true
 draft: false
 disqusIdentifier: "/data-speaks-for-itself"
 aliases:
