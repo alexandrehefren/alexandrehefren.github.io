@@ -1,8 +1,12 @@
 # Cloudflare Pages response headers.
 #
-# GitHub Pages CANNOT set response headers, so this file does nothing while the
-# site is hosted there - it is simply copied into public/ and ignored. It takes
-# effect only if the site is ever served from Cloudflare Pages.
+# LIVE since 30 August 2026: www.alexandrehefren.com is served by Cloudflare
+# Pages, so these headers are in force. GitHub Pages CANNOT set response
+# headers, so the same commit deployed there simply copies this file into
+# public/ and ignores it - which is what keeps the fallback host usable
+# without a host-specific branch. This is the only host-specific file in the
+# repo. If www is ever pointed back at GitHub Pages, these headers silently
+# stop applying; that is the fallback working as designed, not a fault.
 #
 # Every origin below was derived by reading the built site and the EchoThread
 # widget bundle, not guessed. See:
@@ -16,10 +20,26 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   X-Frame-Options: DENY
 
-  # --- CSP: REPORT-ONLY on purpose. ---
-  # This reports violations without blocking anything, so a mistake cannot break
-  # the site. Browse every page with the console open, confirm no violations,
-  # THEN rename the header to Content-Security-Policy to enforce it.
+  # --- CSP: ENFORCING since 30 August 2026. ---
+  # It ran as Content-Security-Policy-Report-Only from the Cloudflare cutover
+  # until the comment widget had been exercised on the real domain. The widget
+  # is the only component making runtime API calls, and its embed key is
+  # domain-locked, so it could not run during pre-migration testing on
+  # pages.dev - the policy was proven for everything except the part most
+  # likely to violate it.
+  #
+  # Verified before enforcing, on www.alexandrehefren.com served by Cloudflare:
+  # the widget rendered in full (composer, formatting, emoji, sort, image
+  # upload, signed-in session), the console was clean, and every origin the
+  # page actually contacted was already allowed - cdn.echothread.io,
+  # api.echothread.io, cdnjs.cloudflare.com, fonts.googleapis.com,
+  # googletagmanager.com, region1.google-analytics.com (matches
+  # *.google-analytics.com), www.youtube-nocookie.com, pbs.twimg.com.
+  # The widget bundle was also read for origins it can reach but did not on
+  # that page: api.echothread.io plus youtube / vimeo / twitch / tiktok
+  # embeds, all of which frame-src already permits.
+  #
+  # To roll back, rename this header to Content-Security-Policy-Report-Only.
   #
   # Why each entry is here:
   #   cdn.echothread.io      comment widget script
@@ -34,9 +54,29 @@
   #   youtube / vimeo /      link previews the comment widget can embed
   #   twitch / tiktok
   #
-  # 'unsafe-inline' is required for now: the site has six inline <script> blocks
-  # plus one onload= handler, and the comment widget writes inline styles. To
-  # remove it from script-src, move those blocks into assets/js/ files first.
+  # 'unsafe-inline' is required, and is NOT removable while EchoThread is
+  # embedded directly. Two separate reasons, often conflated:
+  #
+  #   1. OUR inline <script> blocks. Fixable: hash them, or move them into
+  #      assets/js/ files. Nonces are impossible on a static site - a nonce
+  #      must be unique per response, and this HTML is cached and served
+  #      identically to everyone. Hashes are the only route.
+  #      (The built site has ZERO inline event handlers of its own as of
+  #      30 Aug 2026; the KaTeX onload= is gone. It returns when
+  #      projects/backflow is published, since that page does contain maths -
+  #      move its call into a script file at that point.)
+  #
+  #   2. THE WIDGET's inline handlers. Not fixable here. The bundle writes
+  #      four inline onerror="..." attributes (avatar and image fallbacks)
+  #      into the DOM. Inline event handlers are blocked by script-src
+  #      without 'unsafe-inline', and hashes alone do not cover them -
+  #      they need 'unsafe-hashes' plus a hash per handler, which would
+  #      break on any widget update, silently, with broken avatars.
+  #
+  # So doing (1) alone buys nothing: 'unsafe-inline' still has to stay for
+  # (2). The only real fix is isolating the widget in a cross-origin iframe
+  # on a subdomain - a second Pages project, a DNS record, the subdomain
+  # registered with EchoThread, and a resize bridge.
   #
   # img-src is deliberately NOT 'https:'. A wildcard there would let a
   # compromised third-party script exfiltrate data with
@@ -52,7 +92,7 @@
   # The link still works; only the thumbnail is missing. Accepted deliberately.
   # This does not close exfiltration completely - a compromised script can
   # still navigate the page - but it removes the easy channel.
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.echothread.io https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https://api.echothread.io https://*.echothread.io https://avatars.githubusercontent.com https://lh3.googleusercontent.com https://pbs.twimg.com https://i.ytimg.com; connect-src 'self' https://api.echothread.io https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://api.echothread.io https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://clips.twitch.tv https://www.tiktok.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.echothread.io https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https://api.echothread.io https://*.echothread.io https://avatars.githubusercontent.com https://lh3.googleusercontent.com https://pbs.twimg.com https://i.ytimg.com; connect-src 'self' https://api.echothread.io https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://api.echothread.io https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://clips.twitch.tv https://www.tiktok.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
 
 # Hugo's generated images carry a content hash in the filename (_hu_<hash>),
 # so a changed image gets a new URL and these can be cached hard.
