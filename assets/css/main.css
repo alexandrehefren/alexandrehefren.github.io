@@ -1661,16 +1661,23 @@ mark.lwl-highlight {
    A near-white ground makes a photograph read as a print on a gallery wall and
    stops the site's dark theme competing with the image's own darks. Hardcoded
    rather than tokenised for exactly that reason: it must not follow the theme.
-   Not pure #fff — a hair of warmth keeps it from glaring next to the photo. */
+   Not pure #fff — a hair of warmth keeps it from glaring next to the photo.
+
+   Deliberately translucent, not solid: the gallery stays faintly visible
+   behind, so the viewer reads as an overlay on the page rather than a new
+   screen, and you keep your sense of place in the grid. Blur is light — enough
+   to stop the photos behind competing for attention, not so much that they
+   turn to mush. Push the alpha much past 0.92 and it goes flat; much below
+   0.85 and the background starts fighting the photograph. */
 .lightbox {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(246, 245, 242, 0.97);
+  background: rgba(246, 245, 242, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
 }
 .lightbox[hidden] { display: none; }
 
