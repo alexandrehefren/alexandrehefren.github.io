@@ -1,0 +1,53 @@
+# Cloudflare Pages response headers.
+#
+# GitHub Pages CANNOT set response headers, so this file does nothing while the
+# site is hosted there - it is simply copied into public/ and ignored. It takes
+# effect only if the site is ever served from Cloudflare Pages.
+#
+# Every origin below was derived by reading the built site and the EchoThread
+# widget bundle, not guessed. See:
+#   private/docs/security/2026-08-29_security-audit-hugo-site.md   (F-1, F-5)
+#   private/docs/2026-08-29_cloudflare-pages-migration-decision.md
+
+/*
+  # --- Uncontroversial. Safe to enforce immediately. ---
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  X-Frame-Options: DENY
+
+  # --- CSP: REPORT-ONLY on purpose. ---
+  # This reports violations without blocking anything, so a mistake cannot break
+  # the site. Browse every page with the console open, confirm no violations,
+  # THEN rename the header to Content-Security-Policy to enforce it.
+  #
+  # Why each entry is here:
+  #   cdn.echothread.io      comment widget script
+  #   api.echothread.io      widget API + its hidden auth iframe
+  #   cdn.jsdelivr.net       KaTeX js/css/fonts (math posts only)
+  #   cdnjs.cloudflare.com   Font Awesome css + its font files
+  #   fonts.googleapis.com   Google Fonts stylesheet (@import in main.css)
+  #   fonts.gstatic.com      the font files that stylesheet pulls
+  #   googletagmanager.com   Google Analytics loader
+  #   *.google-analytics.com GA beacons
+  #   api.web3forms.com      contact form submission
+  #   youtube / vimeo /      link previews the comment widget can embed
+  #   twitch / tiktok
+  #
+  # 'unsafe-inline' is required for now: the site has six inline <script> blocks
+  # plus one onload= handler, and the comment widget writes inline styles. To
+  # remove it from script-src, move those blocks into assets/js/ files first.
+  #
+  # img-src allows https: because commenter avatars and uploaded comment images
+  # come from hosts that cannot be known in advance.
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.echothread.io https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://api.echothread.io https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://api.echothread.io https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://clips.twitch.tv https://www.tiktok.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+
+# Hugo's generated images carry a content hash in the filename (_hu_<hash>),
+# so a changed image gets a new URL and these can be cached hard.
+/images/photos/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# main.css is NOT fingerprinted, so it must stay short-lived or edits would
+# take a year to reach returning visitors.
+/css/*
+  Cache-Control: public, max-age=3600
