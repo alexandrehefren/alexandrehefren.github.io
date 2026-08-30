@@ -21,6 +21,16 @@
 {{- end -}}
 
 <div class="photo-gallery-page">
+  {{/* Body text, between the hero and the grid. The hub template has always
+       rendered .Content; this one did not, so prose written into a gallery
+       page vanished silently with no error. A gallery statement lives here —
+       see §6 of private/docs/visual/2026-08-30_photography-portfolio-assessment.md.
+       All three gallery pages have empty bodies, so this renders nothing until
+       something is written. */}}
+  {{- with .Content -}}
+  <div class="photo-gallery-intro content">{{ . }}</div>
+  {{- end -}}
+
   {{- with .Params.gallery -}}
   {{/* Each tile serves a resized WebP via srcset, so a phone downloads ~800px
        and a retina desktop ~1600px, while the lightbox <a href> keeps the

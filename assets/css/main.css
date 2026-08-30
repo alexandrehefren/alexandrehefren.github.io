@@ -1345,6 +1345,22 @@ mark.lwl-highlight {
 .photography-hub-intro p { margin-bottom: var(--sp-2); }
 .photography-hub-intro a { color: var(--accent); }
 
+/* Gallery statement — body text on a single gallery page, between the hero and
+   the grid. Same measure and centring as the hub intro so the two pages read
+   as one voice, but a size down: on the gallery the photographs lead and the
+   words introduce them, which is the reverse of the hub. */
+.photo-gallery-intro {
+  font-size: 1.05rem;
+  color: var(--text-2);
+  max-width: 620px;
+  margin: 0 auto var(--sp-10);
+  text-align: center;
+  line-height: 1.75;
+}
+.photo-gallery-intro p { margin-bottom: var(--sp-3); }
+.photo-gallery-intro p:last-child { margin-bottom: 0; }
+.photo-gallery-intro a { color: var(--accent); }
+
 /* Photography quote — visually separated below the intro text */
 .photo-quote {
   max-width: 560px;
