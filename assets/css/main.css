@@ -1615,6 +1615,23 @@ mark.lwl-highlight {
   margin-bottom: var(--sp-6);
 }
 
+/* "Load comments" button — the widget is not fetched until this is clicked. */
+.comments-load { padding: var(--sp-6) 0; }
+.comments-load-btn {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  padding: var(--sp-3) var(--sp-6);
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+.comments-load-btn:hover:not(:disabled) { background: var(--surface-alt); border-color: var(--accent); }
+.comments-load-btn:disabled { opacity: 0.6; cursor: default; }
+.comments-load-note { margin: var(--sp-3) 0 0; font-size: 0.82rem; color: var(--text-3); }
+
 /* EchoThread widget — map its tokens onto this site's palette.
 
    The widget writes --et-color-* as inline styles on .et-widget (via
