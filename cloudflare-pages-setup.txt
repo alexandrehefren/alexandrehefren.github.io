@@ -1,35 +1,46 @@
 Cloudflare Pages Setup
 ======================
 
-This site can optionally be deployed via Cloudflare Pages for faster delivery
-(especially in the UK) and preview deployments on every pull request.
+Optional alternative host. The site currently runs on GitHub Pages via
+.github/workflows/deploy.yml; both can build from this repo at the same time.
 
-No code changes are needed — just connect via the Cloudflare dashboard.
+The only reason to move is HTTP response headers, which GitHub Pages cannot set
+at all. That is what static/_headers is for -- it is copied into public/ and
+ignored by GitHub Pages, and only takes effect on Cloudflare.
 
-Step 1: Go to https://dash.cloudflare.com and log in (free account).
-Step 2: Click "Workers & Pages" → "Create application" → "Pages" → "Connect to Git".
-Step 3: Select your GitHub repository.
-Step 4: Under "Build settings", enter these three values:
+Full decision document, measurements and the two migration routes:
+  private/docs/2026-08-29_cloudflare-pages-migration-decision.md
 
-  Build command:       cd hugo-site && hugo --minify
-  Build output dir:   hugo-site/public
-  Root directory:     (leave blank — the repo root)
+Build settings (Workers & Pages -> Create -> Pages -> Connect to Git)
+---------------------------------------------------------------------
+  Framework preset:       Hugo
+  Build command:          hugo --gc --minify
+  Build output directory: public
+  Root directory:         (leave blank)
 
-Step 5: Under "Environment variables", add:
+  Environment variable:   HUGO_VERSION = 0.158.0
 
-  Variable name:  HUGO_VERSION
-  Value:          0.128.0
+Note: this repo IS the Hugo site -- hugo.toml sits at the root. There is no
+hugo-site/ subdirectory; an earlier version of this file said there was, which
+would have failed the build.
 
-Step 6: Click "Save and Deploy".
+Watch for the "Build output directory" field. If the form does not ask for it,
+you are in the Workers flow rather than Pages, and these settings will not
+apply.
 
-Step 7 (custom domain): Go to your Cloudflare Pages project → Custom domains →
-  Add "www.alexandrehefren.com". Cloudflare will guide you to update your DNS
-  records. This replaces the GitHub Pages DNS records.
+Going live on the custom domain
+-------------------------------
+Two routes, covered in detail in the decision document:
 
-Notes:
-- You cannot use both GitHub Pages and Cloudflare Pages simultaneously
-  for the same custom domain. Choose one as the live host at a time.
-- GitHub Pages (the default) works immediately with the existing CNAME DNS record.
-- Cloudflare Pages requires changing the CNAME target from
-  alexandrehefren.github.io → <your-project>.pages.dev (Cloudflare handles this).
-- Switching back to GitHub Pages is always possible by reverting the DNS record.
+  Recommended: repoint the single `www` CNAME at the pages.dev hostname. The
+  apex keeps redirecting because GitHub's redirect is driven by static/CNAME,
+  not by DNS. No email records move. Reversible in minutes.
+
+  Phase two: move nameservers to Cloudflare. Needed only for apex control or
+  Cloudflare-side features. Carries every email record, and the registry's
+  48-hour NS TTL means rollback is slow. Verify all eleven records before
+  switching.
+
+Rollback (either route): point `www` back at alexandrehefren.github.io. Leave
+GitHub Pages configured and its custom domain in place -- that is what keeps
+the fallback working.
