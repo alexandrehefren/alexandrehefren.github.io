@@ -24,24 +24,24 @@ gallery:
     title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ2414.jpg
     image_path: /images/photos/street/AHVJ2414.jpg
-    alt: ""
-    title: ""
+    alt: "Manchester, 2023"
+    title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ2596.jpg
     image_path: /images/photos/street/AHVJ2596.jpg
-    alt: ""
-    title: ""
+    alt: "Manchester, 2023"
+    title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ3119.jpg
     image_path: /images/photos/street/AHVJ3119.jpg
-    alt: ""
-    title: ""
+    alt: "Manchester, 2023"
+    title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ3500.jpg
     image_path: /images/photos/street/AHVJ3500.jpg
-    alt: ""
-    title: ""
+    alt: "Liverpool, 2023"
+    title: "Liverpool, 2023"
   - url: /images/photos/street/DSC_6181.jpg
     image_path: /images/photos/street/DSC_6181.jpg
-    alt: ""
-    title: ""
+    alt: "Manchester, 2023"
+    title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ5420.jpg
     image_path: /images/photos/street/AHVJ5420.jpg
     alt: "Manchester, 2023"
