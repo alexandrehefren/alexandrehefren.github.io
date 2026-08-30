@@ -22,8 +22,24 @@
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="en_GB">
 {{- $ogImage := .Params.ogImage | default .Params.teaser | default .Site.Params.ogImage -}}
-{{- with $ogImage -}}<meta property="og:image" content="{{ . | absURL }}">{{- end -}}
+{{- with $ogImage -}}<meta property="og:image" content="{{ . | absURL }}">
+{{/* Dimensions matter more than they look. Without them a scraper must fetch
+     and measure the image before it knows the card is wide enough for the
+     large layout — so the first person to share a link can get the small
+     thumbnail card instead, and that wrong result is then cached for days.
+     Declared only for the site-wide card, whose size is known and fixed at
+     1200x630 by private/scripts/2026-08-30_generate_og_card.py. A per-page
+     ogImage or teaser is an arbitrary file, so it gets no dimensions rather
+     than wrong ones — the scraper measures it, which is slower but correct. */}}
+{{- if eq . site.Params.ogImage -}}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{{- end -}}
+<meta property="og:image:alt" content="{{ $title }}">
+{{- end -}}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $title }}">
 <meta name="twitter:description" content="{{ $description }}">
