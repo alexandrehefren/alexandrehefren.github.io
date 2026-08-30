@@ -18,6 +18,17 @@
     {{- with $.Params.excerpt -}}<p>{{ . }}</p>{{- end -}}
   </div>
 </div>
+{{- else -}}
+{{- /* No headerImage: the <h1> above lives inside the hero, so without this
+       fallback the page would render with no heading at all — invisible to a
+       reader and to a screen reader, and it makes a gallery that is still
+       being assembled look broken rather than empty. Reuses the hub header
+       styles so a finished page and an unfinished one differ only by the
+       banner. */ -}}
+<div class="photo-gallery-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Params.excerpt -}}<p class="photography-hub-tagline">{{ . }}</p>{{- end -}}
+</div>
 {{- end -}}
 
 <div class="photo-gallery-page">

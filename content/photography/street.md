@@ -1,6 +1,7 @@
 ---
 title: "Street Photography"
 slug: "street"
+weight: 20   # Photography hub card order (gaps of 10 leave room to insert)
 description: "Street photography by Alexandre Hefren"
 excerpt: "Pieces of a city"
 headerImage: "/images/photos/street/AHVJ2815-3.jpg"

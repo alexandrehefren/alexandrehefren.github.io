@@ -1,0 +1,148 @@
+{{/* photo-series — a masonry gallery with lightbox, inside a post.
+
+     Usage: put the frames in the post's front matter under `gallery:` (url /
+     image_path / alt / title), then call {{< photo-series >}} at the point in
+     the body where they should appear.
+
+     DELIBERATELY SELF-CONTAINED. This shares NOTHING with
+     layouts/photography/ — not a partial, not a CSS class, not a script. Every
+     class here is prefixed `ps-`, the masonry and lightbox JS are their own
+     copies, and both are scoped to this shortcode's own container rather than
+     querying the document.
+
+     That is duplication, and it is the point: the photography galleries are
+     the live, finished part of the site, and nothing done for a post should be
+     able to reach them. Editing this file cannot affect /photography/.
+
+     The cost is the usual one — a fix made here is not made there. Accepted,
+     because this is a demo that may never be adopted, and deleting it is three
+     files: this shortcode, the `.ps-` CSS block in main.css, and the post.
+
+     Background: §7 of
+     private/docs/visual/2026-08-30_photography-portfolio-assessment.md
+     Multiple series per page are supported; each gets its own grid and its own
+     lightbox instance. */}}
+
+{{- $uid := printf "ps-%d" (add 1 .Ordinal) -}}
+{{- with .Page.Params.gallery -}}
+<div class="ps-series" id="{{ $uid }}">
+  <div class="ps-grid" data-ps-grid>
+    {{- range . -}}
+    {{- $orig := .image_path -}}{{- $alt := .alt -}}{{- $caption := .title -}}
+    <figure class="ps-item">
+      {{- $res := resources.Get (strings.TrimPrefix "/" $orig) -}}
+      {{- if $res -}}
+      {{- $ow := $res.Width -}}
+      {{- $s := $res.Resize (printf "%dx webp q80" (cond (lt $ow 800) $ow 800)) -}}
+      {{- $m := $res.Resize (printf "%dx webp q80" (cond (lt $ow 1200) $ow 1200)) -}}
+      {{- $l := $res.Resize (printf "%dx webp q82" (cond (lt $ow 1600) $ow 1600)) -}}
+      {{- $xl := $res.Fit "2000x2000 webp q82" -}}
+      <a href="{{ $xl.RelPermalink }}">
+        <img src="{{ $m.RelPermalink }}"
+             srcset="{{ $s.RelPermalink }} {{ $s.Width }}w, {{ $m.RelPermalink }} {{ $m.Width }}w, {{ $l.RelPermalink }} {{ $l.Width }}w"
+             sizes="(max-width: 380px) 100vw, (max-width: 768px) 50vw, 33vw"
+             width="{{ $m.Width }}" height="{{ $m.Height }}"
+             alt="{{ $alt }}" loading="lazy" title="{{ $caption }}">
+      </a>
+      {{- else -}}
+      {{- /* Not under assets/ — serve the original rather than nothing. */ -}}
+      <a href="{{ $orig }}"><img src="{{ $orig }}" alt="{{ $alt }}" loading="lazy" title="{{ $caption }}"></a>
+      {{- end -}}
+      <figcaption>{{ $caption }}</figcaption>
+    </figure>
+    {{- end -}}
+  </div>
+
+  <div class="ps-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="ps-lb-close" aria-label="Close">&times;</button>
+    <button class="ps-lb-prev" aria-label="Previous photo">&#8249;</button>
+    <button class="ps-lb-next" aria-label="Next photo">&#8250;</button>
+    <div class="ps-lb-wrap"><img class="ps-lb-img" src="" alt=""></div>
+    <div class="ps-lb-caption"></div>
+    <div class="ps-lb-counter"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById({{ $uid }});
+  if (!root) return;
+
+  /* --- masonry, scoped to this grid only --------------------------------- */
+  var grid = root.querySelector('[data-ps-grid]');
+  var items = Array.prototype.slice.call(root.querySelectorAll('.ps-item'));
+  if (grid && ('gridTemplateColumns' in grid.style)) {
+    var GAP = 8;
+    grid.classList.add('is-masonry');
+    var sizeItem = function (item) {
+      var h = item.getBoundingClientRect().height;
+      if (h) item.style.gridRowEnd = 'span ' + (Math.ceil(h) + GAP);
+    };
+    var sizeAll = function () { items.forEach(sizeItem); };
+    var ticking = false;
+    var schedule = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sizeAll(); });
+    };
+    items.forEach(function (item) {
+      var img = item.querySelector('img');
+      if (!img) return;
+      if (img.complete) sizeItem(item);
+      img.addEventListener('load', function () { sizeItem(item); });
+    });
+    schedule();
+    window.addEventListener('load', sizeAll);
+    window.addEventListener('resize', schedule);
+  }
+
+  /* --- lightbox, scoped to this series only ------------------------------ */
+  var lb = root.querySelector('.ps-lightbox');
+  if (!lb) return;
+  var img = lb.querySelector('.ps-lb-img');
+  var cap = lb.querySelector('.ps-lb-caption');
+  var num = lb.querySelector('.ps-lb-counter');
+  var frames = [];
+  var idx = 0;
+
+  root.querySelectorAll('.ps-item a').forEach(function (a, i) {
+    var fc = a.parentElement.querySelector('figcaption');
+    frames.push({ src: a.getAttribute('href'), title: fc ? fc.textContent : '' });
+    a.addEventListener('click', function (e) { e.preventDefault(); open(i); });
+  });
+
+  function show() {
+    img.src = frames[idx].src;
+    img.alt = frames[idx].title;
+    cap.textContent = frames[idx].title;
+    num.textContent = (idx + 1) + ' / ' + frames.length;
+  }
+  function open(i) { idx = i; show(); lb.hidden = false; document.body.style.overflow = 'hidden'; }
+  function close() { lb.hidden = true; document.body.style.overflow = ''; }
+  function prev() { idx = (idx - 1 + frames.length) % frames.length; show(); }
+  function next() { idx = (idx + 1) % frames.length; show(); }
+
+  lb.querySelector('.ps-lb-close').addEventListener('click', close);
+  lb.querySelector('.ps-lb-prev').addEventListener('click', prev);
+  lb.querySelector('.ps-lb-next').addEventListener('click', next);
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb || e.target.classList.contains('ps-lb-wrap')) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  var touchX = 0;
+  lb.addEventListener('touchstart', function (e) { touchX = e.changedTouches[0].screenX; }, {passive:true});
+  lb.addEventListener('touchend', function (e) {
+    var d = e.changedTouches[0].screenX - touchX;
+    if (Math.abs(d) > 50) { d > 0 ? prev() : next(); }
+  }, {passive:true});
+})();
+</script>
+{{- else -}}
+{{- warnf "photo-series shortcode used on %q but the page has no `gallery` front matter" .Page.File.Path -}}
+{{- end -}}

@@ -1,6 +1,7 @@
 ---
 title: "Landscape"
 slug: "landscape"
+weight: 10   # Photography hub card order (gaps of 10 leave room to insert)
 description: "Landscape photography by Alexandre Hefren"
 excerpt: "Finding beauty"
 headerImage: "/images/photos/landscape/AHVJ3861-2.jpg"

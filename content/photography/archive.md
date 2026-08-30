@@ -5,7 +5,7 @@
 # undone deliberately; none can be tripped by accident:
 #
 #   1. draft: true          — a normal `hugo` build skips the page entirely
-#   2. _build render/list   — even with draft:false, Hugo emits no page at all
+#   2. build render/list    — even with draft:false, Hugo emits no page at all
 #   3. the gallery below is commented out — even if rendered, it is empty
 #
 # WHY IT IS PARKED, not deleted. The recommendation in
@@ -17,14 +17,14 @@
 # An archive earns its place only when it has a reason to exist beyond being
 # the offcuts — a documentary project, a time series of one place, work with
 # historical value. If such a body of work ever appears, the scaffolding is
-# here: uncomment the gallery, drop the _build block, set draft: false. The
+# here: uncomment the gallery, drop the build block, set draft: false. The
 # hub-grid exclusion and the foot-of-gallery link are already wired up in
 # layouts/photography/.
 title: "Archive"
 slug: "archive"
 draft: true
 archive: true
-_build:
+build:
   render: never
   list: never
 description: "Further street and city frames by Alexandre Hefren"

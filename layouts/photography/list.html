@@ -15,7 +15,10 @@
          standing beside Street and Landscape as an equal card would read as a
          third body of work of the same standing, which defeats its purpose —
          it is reached from the foot of a gallery instead. */}}
-    {{- range where .Pages "Params.archive" "!=" true -}}
+    {{/* Ordered by the `weight` in each gallery's front matter. Without
+         .ByWeight the grid falls back to alphabetical, which is not the
+         order the galleries should be read in. */}}
+    {{- range (where .Pages "Params.archive" "!=" true).ByWeight -}}
     <a href="{{ .RelPermalink }}" class="photo-hub-card">
       {{- with .Params.headerImage -}}
       {{- /* Gallery photos live under assets/ so Hugo can resize them; anything
@@ -26,6 +29,13 @@
         {{- $cardSrc = (.Resize "900x webp q80").RelPermalink -}}
       {{- end -}}
       <img src="{{ $cardSrc }}" alt="{{ $.Title }}" loading="lazy">
+      {{- else -}}
+      {{- /* No headerImage yet. The caption is absolutely positioned over the
+             image, so without a placeholder of the same height the whole card
+             collapses to nothing and the gallery vanishes from the grid while
+             still being present in the HTML. A gallery under construction
+             should read as empty, not as missing. */ -}}
+      <div class="photo-hub-card-placeholder" aria-hidden="true"></div>
       {{- end -}}
       <div class="photo-hub-card-caption">
         <h2>{{ .Title }}</h2>

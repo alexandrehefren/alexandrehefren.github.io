@@ -753,7 +753,38 @@ body[data-nav="static"] .site-nav { position: static; }
   flex-direction: column;
   transition: box-shadow var(--transition), transform var(--transition);
   box-shadow: var(--shadow-sm);
+
+  /* Anchor for the stretched title link below. */
+  position: relative;
 }
+
+/* ── Whole-card click ("stretched link") ─────────────────────────────────────
+   Photography cards wrap the entire tile in one <a>. A post card cannot: it
+   contains tag links, and <a> inside <a> is invalid HTML — the browser
+   silently breaks the outer anchor. So the anchor stays on the title and an
+   invisible ::after is stretched over the card instead.
+
+   The pseudo-element belongs to the title's <a>, so hovering anywhere on the
+   card still triggers `.post-card-title a:hover` — the title colour change is
+   not lost, it now fires card-wide.
+
+   Tags sit above the overlay (z-index) so they remain independently clickable.
+
+   TO REVERT to title-only clicking: comment out this whole block, plus the
+   `position: relative` line added to `.post-card` above. Nothing else changed. */
+.post-card-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.post-card { cursor: pointer; }
+.post-card .tags,
+.post-card .tags .tag {
+  position: relative;
+  z-index: 2;
+}
+/* ─────────────────────────────────────────────────────────────────────────── */
 .post-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
@@ -894,6 +925,163 @@ body[data-nav="static"] .site-nav { position: static; }
   border-radius: var(--radius-lg);
   margin-bottom: var(--sp-8);
   box-shadow: var(--shadow-md);
+}
+
+/* ── Photo series inside a post — the {{< photo-series >}} shortcode ──────────
+   DELIBERATELY SELF-CONTAINED. Every selector here is `.ps-` prefixed and
+   shares nothing with the .photo-gallery / .gallery-item / .lightbox rules used
+   by /photography/. Editing this block cannot affect the galleries, and
+   editing the gallery rules cannot affect a post. The duplication is the
+   isolation. Only the :root design tokens are shared, which is what they are
+   for.
+   To delete the whole feature: remove this block, layouts/shortcodes/
+   photo-series.html, and the post that calls it. Nothing else references it. */
+
+.ps-series { margin: var(--sp-10) 0; }
+
+/* Break wider than the text column so the grid reads as a set of photographs
+   rather than illustrations to the prose — but stay inside the article rather
+   than going full-bleed. Below 1100px there is nothing to break out of. */
+@media (min-width: 1100px) {
+  .ps-series {
+    width: calc(100% + 2 * var(--sp-16));
+    margin-left: calc(-1 * var(--sp-16));
+    margin-right: calc(-1 * var(--sp-16));
+  }
+}
+
+.ps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 8px;
+  row-gap: 8px;
+  align-items: start;
+}
+/* JS adds this and spans each item to its image height, giving row-major
+   masonry. Without JS it degrades to a plain top-aligned grid. */
+.ps-grid.is-masonry { grid-auto-rows: 1px; row-gap: 0; }
+
+@media (max-width: 768px) { .ps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 380px) { .ps-grid { grid-template-columns: 1fr; } }
+
+.ps-item {
+  /* margin must stay 0: .ps-item is a <figure> and would inherit the global
+     `figure { margin: 2rem 0 }`, breaking the grid. */
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  background: var(--surface-alt);
+  cursor: pointer;
+}
+.ps-item a { display: block; line-height: 0; }
+.ps-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 300ms ease, opacity 300ms ease;
+}
+.ps-item:hover img { transform: scale(1.03); opacity: 0.88; }
+
+.ps-item figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 6px 10px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.55));
+  color: rgba(255,255,255,0.9);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-family: var(--font-sans);
+  text-align: left;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.ps-item:hover figcaption { opacity: 1; }
+
+/* Lightbox — light backdrop in both themes, as on the gallery pages, but its
+   own rules. See the .lightbox block for why near-white rather than dark. */
+.ps-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(246, 245, 242, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+.ps-lightbox[hidden] { display: none; }
+
+.ps-lb-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; height: 100%;
+  padding: 60px 80px;
+}
+.ps-lb-img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ps-lb-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: none; border: none;
+  color: rgba(17,17,16,0.55);
+  font-size: 2.4rem;
+  cursor: pointer; z-index: 10; line-height: 1;
+  padding: 4px 10px;
+  transition: color 200ms;
+}
+.ps-lb-close:hover { color: #111110; }
+
+.ps-lb-prev, .ps-lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(17,17,16,0.05);
+  border: none;
+  color: rgba(17,17,16,0.5);
+  font-size: 2.8rem;
+  cursor: pointer; z-index: 10;
+  padding: 12px 16px; line-height: 1;
+  border-radius: 4px;
+  transition: background 200ms, color 200ms;
+}
+.ps-lb-prev { left: 12px; }
+.ps-lb-next { right: 12px; }
+.ps-lb-prev:hover, .ps-lb-next:hover {
+  background: rgba(17,17,16,0.11);
+  color: #111110;
+}
+
+.ps-lb-caption {
+  position: absolute;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  color: rgba(17,17,16,0.7);
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  text-align: center;
+  max-width: 600px;
+}
+.ps-lb-counter {
+  position: absolute;
+  top: 20px; left: 24px;
+  color: rgba(17,17,16,0.45);
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+}
+
+@media (max-width: 768px) {
+  .ps-lb-wrap { padding: 44px 12px; }
+  .ps-lb-caption { font-size: 0.8rem; bottom: 12px; }
+  .ps-lb-counter { font-size: 0.7rem; top: 14px; left: 12px; }
+  .ps-lb-close { top: 10px; right: 12px; font-size: 2rem; }
 }
 
 /* Post body */
@@ -1349,6 +1537,23 @@ mark.lwl-highlight {
    the grid. Same measure and centring as the hub intro so the two pages read
    as one voice, but a size down: on the gallery the photographs lead and the
    words introduce them, which is the reverse of the hub. */
+/* Gallery page heading used when a gallery has no headerImage — the hero, and
+   with it the <h1>, is skipped in that case. Matches .photography-hub-header so
+   the two page types read as the same family. */
+.photo-gallery-header {
+  text-align: center;
+  margin: 0 0 var(--sp-8);
+}
+.photo-gallery-header h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+.photo-gallery-header .photography-hub-tagline { margin-top: var(--sp-2); }
+
 .photo-gallery-intro {
   font-size: 1.05rem;
   color: var(--text-2);
@@ -1421,6 +1626,16 @@ mark.lwl-highlight {
   transition: transform 400ms ease;
 }
 .photo-hub-card:hover img { transform: scale(1.04); }
+/* Stand-in for a gallery that has no headerImage yet. Same height as
+   .photo-hub-card img so the grid keeps its rhythm, and dark enough in both
+   themes for the white caption text over it to stay legible. */
+.photo-hub-card-placeholder {
+  width: 100%;
+  height: 360px;
+  display: block;
+  background: linear-gradient(135deg, #3a3a36, #262623);
+}
+
 .photo-hub-card-caption {
   position: absolute;
   bottom: 0; left: 0; right: 0;
