@@ -45,7 +45,17 @@
       {{- $s := $res.Resize (printf "%dx webp q80" (cond (lt $ow 800) $ow 800)) -}}
       {{- $m := $res.Resize (printf "%dx webp q80" (cond (lt $ow 1200) $ow 1200)) -}}
       {{- $l := $res.Resize (printf "%dx webp q82" (cond (lt $ow 1600) $ow 1600)) -}}
-      <a href="{{ $res.RelPermalink }}">
+      {{/* The lightbox loads `href`, so this is the only size a viewer ever sees
+           full-screen. WebP q82: visually identical to the original JPEG at
+           screen sizes, a fraction of the bytes, and it keeps the unprocessed
+           original off a public URL.
+
+           Fit, not Resize: Resize takes a WIDTH, which does nothing to a
+           portrait frame — a 1600x2400 upload stays 2400 tall and enormous.
+           Fit bounds BOTH sides, so this caps the long edge at 2000 whatever
+           the orientation, and never upscales a smaller upload. */}}
+      {{- $xl := $res.Fit "2000x2000 webp q82" -}}
+      <a href="{{ $xl.RelPermalink }}">
         <img src="{{ $m.RelPermalink }}"
              srcset="{{ $s.RelPermalink }} {{ $s.Width }}w, {{ $m.RelPermalink }} {{ $m.Width }}w, {{ $l.RelPermalink }} {{ $l.Width }}w"
              sizes="(max-width: 380px) 100vw, (max-width: 768px) 50vw, 33vw"

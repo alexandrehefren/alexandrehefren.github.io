@@ -1657,11 +1657,16 @@ mark.lwl-highlight {
 /* ─────────────────────────────────────────────────────
    LIGHTBOX
 ───────────────────────────────────────────────────── */
+/* Light backdrop, in BOTH themes deliberately — this is a viewer, not a page.
+   A near-white ground makes a photograph read as a print on a gallery wall and
+   stops the site's dark theme competing with the image's own darks. Hardcoded
+   rather than tokenised for exactly that reason: it must not follow the theme.
+   Not pure #fff — a hair of warmth keeps it from glaring next to the photo. */
 .lightbox {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(246, 245, 242, 0.97);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1692,7 +1697,7 @@ mark.lwl-highlight {
   top: 16px; right: 20px;
   background: none;
   border: none;
-  color: rgba(255,255,255,0.8);
+  color: rgba(17,17,16,0.55);
   font-size: 2.4rem;
   cursor: pointer;
   z-index: 10;
@@ -1700,7 +1705,7 @@ mark.lwl-highlight {
   padding: 4px 10px;
   transition: color 200ms;
 }
-.lightbox-close:hover { color: #fff; }
+.lightbox-close:hover { color: #111110; }
 
 /* Prev / Next arrows */
 .lightbox-prev,
@@ -1708,9 +1713,9 @@ mark.lwl-highlight {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.08);
+  background: rgba(17,17,16,0.05);
   border: none;
-  color: rgba(255,255,255,0.75);
+  color: rgba(17,17,16,0.5);
   font-size: 2.8rem;
   cursor: pointer;
   z-index: 10;
@@ -1723,8 +1728,8 @@ mark.lwl-highlight {
 .lightbox-next { right: 12px; }
 .lightbox-prev:hover,
 .lightbox-next:hover {
-  background: rgba(255,255,255,0.18);
-  color: #fff;
+  background: rgba(17,17,16,0.11);
+  color: #111110;
 }
 
 /* Caption + counter */
@@ -1733,7 +1738,7 @@ mark.lwl-highlight {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(255,255,255,0.8);
+  color: rgba(17,17,16,0.7);
   font-size: 0.9rem;
   font-family: var(--font-sans);
   text-align: center;
@@ -1743,7 +1748,7 @@ mark.lwl-highlight {
   position: absolute;
   top: 20px;
   left: 24px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(17,17,16,0.45);
   font-size: 0.8rem;
   font-family: var(--font-sans);
 }
