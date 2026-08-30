@@ -86,10 +86,10 @@ gallery:
     image_path: /images/photos/street/AHVJ3498.jpg
     alt: "Blackburn, 2023"
     title: "Blackburn, 2023"
-  - url: /images/photos/street/DSC_3686.jpg
-    image_path: /images/photos/street/DSC_3686.jpg
-    alt: "Manchester, 2022"
-    title: "Manchester, 2022"
+  # - url: /images/photos/street/DSC_3686.jpg
+  #   image_path: /images/photos/street/DSC_3686.jpg
+  #   alt: "Manchester, 2022"
+  #   title: "Manchester, 2022"
   - url: /images/photos/street/AHVJ5337.jpg
     image_path: /images/photos/street/AHVJ5337.jpg
     alt: "Manchester, 2023"
