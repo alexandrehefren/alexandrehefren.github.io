@@ -787,39 +787,15 @@ body[data-nav="static"] .site-nav { position: static; }
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 /* ── Card hover ───────────────────────────────────────────────────────────────
-   Two versions live here: the card lift (active) and a Google Arts & Culture
-   image zoom (parked, commented out below).
+   ACTIVE: card lifts, matching .home-project-card.
 
-   The zoom was tried on the live site 31 Aug 2026 and reverted — post cards now
-   match .home-project-card again rather than sitting between two styles.
+   One class serves the homepage strip and /posts/, so both pages always match.
+   Zooming on one and lifting on the other needs a second class.
 
-   Zoom reference, read off Google's live stylesheet (Aug 2026):
-
-     .NQwUHc .mRtnL       { transition: transform 1s cubic-bezier(0.19,1,0.22,1); }
-     .NQwUHc:hover .mRtnL { transform: scale3d(1.1, 1.1, 1); }
-
-   inside `@media screen and (min-width: 481px)`, with overflow:hidden on the
-   parent. Three details make it read as theirs rather than a generic zoom:
-
-   1. scale3d, not scale — promotes the image to its own GPU layer, so a 1s
-      animation on a 200px-tall photo stays smooth instead of repainting.
-   2. cubic-bezier(0.19, 1, 0.22, 1) — "easeOutExpo": leaps at the start, then
-      glides to a stop. The slow settle is what makes it feel expensive; a
-      linear or plain `ease` curve at the same duration just feels sluggish.
-   3. The min-width guard. On a touch screen there is no un-hover, so a tapped
-      card would stay zoomed until the next tap lands elsewhere.
-
-   The clipping frame is `.post-card`'s existing overflow:hidden — without it
-   the image grows past the card's rounded corners instead of filling them.
-
-   The lift is ACTIVE; the zoom is parked below. TO SWITCH to the zoom, swap
-   the two blocks: comment out the active one, uncomment the parked one.
-
-   Note this class is shared by the homepage's latest-posts strip and the
-   /posts/ list, so whichever block is active governs both. */
-
-/* ACTIVE: whole card lifts on hover. Matches .home-project-card, so the two
-   card types on the homepage behave identically. */
+   PARKED below: Google Arts & Culture zoom — scale3d(1.1,1.1,1) over 1s
+   cubic-bezier(0.19,1,0.22,1), ≥481px only (touch has no un-hover). Clipped by
+   .post-card's overflow:hidden. Tried live 31 Aug 2026, reverted.
+   To switch, swap which block is commented. */
 .post-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
