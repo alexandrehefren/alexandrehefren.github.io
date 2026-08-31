@@ -35,12 +35,12 @@ gallery:
     image_path: /images/photos/street/DSC_7538.jpg
     alt: "Fortaleza, 2024"
     title: "Fortaleza, 2024"
-  - url: /images/photos/street/AHVJ2414.jpg
-    image_path: /images/photos/street/AHVJ2414.jpg
-    alt: "Manchester, 2023"
-    title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ2596.jpg
     image_path: /images/photos/street/AHVJ2596.jpg
+    alt: "Manchester, 2023"
+    title: "Manchester, 2023"
+  - url: /images/photos/street/AHVJ2414.jpg
+    image_path: /images/photos/street/AHVJ2414.jpg
     alt: "Manchester, 2023"
     title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ3119.jpg
@@ -115,10 +115,10 @@ gallery:
   #   image_path: /images/photos/street/DSC_5344.jpg
   #   alt: "Lisboa, 2023"
   #   title: "Lisboa, 2023"
-  - url: /images/photos/street/DSC_6106.jpg
-    image_path: /images/photos/street/DSC_6106.jpg
-    alt: "Manchester, 2023"
-    title: "Manchester, 2023"
+  # - url: /images/photos/street/DSC_6106.jpg
+  #   image_path: /images/photos/street/DSC_6106.jpg
+  #   alt: "Manchester, 2023"
+  #   title: "Manchester, 2023"
   - url: /images/photos/street/AHVJ5213.jpg
     image_path: /images/photos/street/AHVJ5213.jpg
     alt: "Lancaster, 2023"
