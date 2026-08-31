@@ -111,10 +111,10 @@ gallery:
     image_path: /images/photos/street/DSC_4620.jpg
     alt: "Manchester, 2022"
     title: "Manchester, 2022"
-  - url: /images/photos/street/DSC_5344.jpg
-    image_path: /images/photos/street/DSC_5344.jpg
-    alt: "Lisboa, 2023"
-    title: "Lisboa, 2023"
+  # - url: /images/photos/street/DSC_5344.jpg
+  #   image_path: /images/photos/street/DSC_5344.jpg
+  #   alt: "Lisboa, 2023"
+  #   title: "Lisboa, 2023"
   - url: /images/photos/street/DSC_6106.jpg
     image_path: /images/photos/street/DSC_6106.jpg
     alt: "Manchester, 2023"
@@ -135,10 +135,10 @@ gallery:
   #   image_path: /images/photos/street/DSC_5751.jpg
   #   alt: "Manchester, 2023"
   #   title: "Manchester, 2023"
-  - url: /images/photos/street/DSC_5844.jpg
-    image_path: /images/photos/street/DSC_5844.jpg
-    alt: "Manchester, 2023"
-    title: "Manchester, 2023"
+  # - url: /images/photos/street/DSC_5844.jpg
+  #   image_path: /images/photos/street/DSC_5844.jpg
+  #   alt: "Manchester, 2023"
+  #   title: "Manchester, 2023"
   - url: /images/photos/street/DSC_0548.jpg
     image_path: /images/photos/street/DSC_0548.jpg
     alt: "Whitby, 2018"
