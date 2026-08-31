@@ -785,6 +785,30 @@ body[data-nav="static"] .site-nav { position: static; }
   z-index: 2;
 }
 /* ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Card hover: image zoom, card stays still ────────────────────────────────
+   Modelled on Google Arts & Culture. Read off their live stylesheet (Aug 2026):
+
+     .NQwUHc .mRtnL       { transition: transform 1s cubic-bezier(0.19,1,0.22,1); }
+     .NQwUHc:hover .mRtnL { transform: scale3d(1.1, 1.1, 1); }
+
+   inside `@media screen and (min-width: 481px)`, with overflow:hidden on the
+   parent. Three details make it read as theirs rather than a generic zoom:
+
+   1. scale3d, not scale — promotes the image to its own GPU layer, so a 1s
+      animation on a 200px-tall photo stays smooth instead of repainting.
+   2. cubic-bezier(0.19, 1, 0.22, 1) — "easeOutExpo": leaps at the start, then
+      glides to a stop. The slow settle is what makes it feel expensive; a
+      linear or plain `ease` curve at the same duration just feels sluggish.
+   3. The min-width guard. On a touch screen there is no un-hover, so a tapped
+      card would stay zoomed until the next tap lands elsewhere.
+
+   The clipping frame is `.post-card`'s existing overflow:hidden — without it
+   the image grows past the card's rounded corners instead of filling them.
+
+   TO REVERT to the card-lift version, swap the two blocks below. */
+
+/* -- PREVIOUS VERSION: whole card lifts on hover. Kept for easy rollback. --
 .post-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
@@ -794,6 +818,25 @@ body[data-nav="static"] .site-nav { position: static; }
   height: 200px;
   object-fit: cover;
   display: block;
+}
+   -- end previous version -- */
+
+.post-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.post-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+@media screen and (min-width: 481px) {
+  .post-card-img {
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .post-card:hover .post-card-img {
+    transform: scale3d(1.1, 1.1, 1);
+  }
 }
 .post-card-img-placeholder {
   height: 8px;
